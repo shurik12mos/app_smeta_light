@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="row">		
+		<h1>{{section.name}}</h1>	
+		<p>{{section.description}}</p>
+		<hr/>
+		<div class="col-md-4">
+			<h4>Характеристики раздела</h4>
+			<table>
+				<tr>
+					<th>Название</th>
+					<th>Ед.изм.</th>
+					<th>Описание</th>					
+				</tr>
+				<tr ng-repeat="charName in section.charNames">
+					<td>{{charName.name}}</td>
+					<td>{{charName.measure}}</td>
+					<td>{{charName.description}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-8">
+			
+		</div>
+	</div>
+</div>

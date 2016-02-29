@@ -1,0 +1,29 @@
+.category, .section {
+	width: 100%;
+	padding: 10px 0px;	
+}
+
+.category>h4,
+.section>h4{
+	cursor: pointer;
+}
+
+.category>p,
+.section>p {	
+	padding: 10px;
+}
+
+.category>h4:hover,
+.section>h4:hover {
+	background-color: rgb(171, 171, 244);
+}
+
+.active {
+	background-color: rgb(171, 171, 244);
+}
+
+table {
+	width: 100%;
+	border: 1px solid black;
+	text-align: center;
+}
