@@ -1,25 +1,50 @@
 <div class="container">
-	<div class="row">		
+	<div class="row charName">		
 		<h1>{{section.name}}</h1>	
-		<p>{{section.description}}</p>
+		<p>{{section.description}}</p>		
 		<hr/>
 		<div class="col-md-4">
 			<h4>Характеристики раздела</h4>
 			<table>
 				<tr>
+					<th></th>
+					<th></th>
 					<th>Название</th>
 					<th>Ед.изм.</th>
 					<th>Описание</th>					
 				</tr>
-				<tr ng-repeat="charName in section.charNames">
-					<td>{{charName.name}}</td>
-					<td>{{charName.measure}}</td>
-					<td>{{charName.description}}</td>
-				</tr>
+				<tr ng-repeat="char in section.charNames" >
+					<td class="change" ng-click = "update_charName(char.id_chars_name, charName, charMeasure, charDescription)">?</td>
+					<td class="delete" ng-click = "delete_charName(char.id_chars_name)">-</td>
+					<td><input type="text" ng-model="charName" ng-init="charName=char.name" style="width: 100%;"></input></td>
+					<td><input type="text" ng-model="charMeasure" ng-init="charMeasure=char.measure" style="width: 100%;"></input></td>					
+					<td><input type="text" ng-model="charDescription" ng-init="charDescription=char.description" style="width: 100%;"></input></td>					
+				</tr>				
 			</table>
+			<div>
+				<h4>Добавить характеристику</h4>
+				<form class="form" name="char" ng-submit="add_char()">
+					<input type="text" ng-model="charName" name="name" placeholder="Название" ng-maxlength="200" required ng-trim="false"/>
+					<input type="text" ng-model="charMeasure" name="measure" placeholder="Еденица измерения" ng-maxlength="200" required ng-trim="false"/>
+					<input type="text" ng-model = "charDescription" name="description" placeholder="Описание" required ng-trim="false"/>				
+					<button type="submit" id="submitChar" class="btn btn-primary" ng-disabled="char.$invalid || char.$pristine" >Отправить</button>
+				</form>
+			</div>
 		</div>
 		<div class="col-md-8">
-			
+			<h2>Список работ</h2>
+			<table>
+				<tr >
+					<th>id</th>					
+					<th>Человеко-часы, ч</th>
+					<th ng-repeat="char in section.charNames">{{char.name}} / {{char.measure}}</th>
+				</tr>
+				<tr ng-repeat="job in section.jobs">
+					<td>{{job.id_jobs}}</td>
+					<td>{{job.hhours}}</td>
+					<td ng-repeat="charJob in job.chars">{{charJob.value}}</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </div>

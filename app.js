@@ -44,4 +44,17 @@ app.factory('Section', function($resource) {
 		); 
 		return Section;
 	});
+	
+app.factory('SectionOne', function($resource) {
+	var Section = $resource('api/sectionOne.php',	
+			{},
+			{
+				update: {
+						method: "PUT"
+						}
+			}
+		); 
+		return Section;
+	});
+
 

@@ -27,3 +27,27 @@ table {
 	border: 1px solid black;
 	text-align: center;
 }
+
+td, tr, th {
+	border: 1px solid black;
+	text-align: center;
+	min-width: 10px;
+}
+
+.change {
+	background-color: green;
+}
+
+.delete {
+	background-color: red;
+}
+
+.change, .delete {
+	cursor: pointer;
+}
+
+.form>input {
+	display: block;
+	width: 100%;
+	margin: 5px 0px;
+}

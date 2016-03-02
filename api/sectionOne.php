@@ -6,18 +6,7 @@
 		
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
-		if ($_GET["id_category"]) {
-			$id = $_GET["id_category"];
-			$query="SELECT * FROM tbl_job_section WHERE `id_job_section` IN (SELECT `tbl_job_section_id_job_section` FROM `tbl_job_section_has_tbl_category` WHERE `tbl_category_id_category` = '$id')";
-			$result = $db->query($query) or die($mysqli->error.__LINE__);
-			
-			$arr = array();
-			if($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
-				$arr[] = $row;
-				}
-			}
-		}	
+		
 		
 		if ($_GET["id_section"]){
 			$id = $_GET["id_section"];
@@ -83,12 +72,12 @@
 		$ar=json_decode($params);
 		$ar = (array)$ar;			
 		
+		$id = (int) $ar["id_section"];
 		$name = $ar["name"];
-		$desc = $ar["desc"];	
-		$keywords = $ar["keywords"];
-		$id_category = $ar["id_category"];		
+		$desc = $ar["description"];
+		$measure = $ar["measure"];	
 		
-		$query="INSERT INTO `tbl_job_section`(`name`, `description`, `keywords`) VALUES ('$name', '$desc', '$keywords')";
+		$query="INSERT INTO `tbl_chars_name`(`name`, `measure`, `description`, `tbl_job_section_id_job_section`) VALUES ('$name', '$measure', '$desc', '$id')";
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 		
 		$id_section = $db->insert_id;		
@@ -105,15 +94,16 @@
 		$params = trim(file_get_contents('php://input'));
 		$ar=json_decode($params);
 		$ar = (array)$ar;	
-		$id = (int) $ar["id_job_section"];
+		$id = (int) $ar["id"];
 		$name = $ar["name"];
 		$desc = $ar["description"];
-		$keywords = $ar["keywords"];
+		$measure = $ar["measure"];
+		$id_section = $ar["id_section"];
 		
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		$query="UPDATE `tbl_job_section` SET `name`= '$name', `description` = '$desc', `keywords` = '$keywords' WHERE `id_job_section` = '$id'";		
+		$query="UPDATE `tbl_chars_name` SET `name`= '$name', `description` = '$desc', `measure` = '$measure', `tbl_job_section_id_job_section` = '$id_section' WHERE `id_chars_name` = '$id'";		
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 		
 		$db->close();
@@ -132,12 +122,11 @@
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		$query="DELETE FROM `tbl_job_section` WHERE `id_job_section` = '$id'";
-		$result = $db->query($query) or die($mysqli->error.__LINE__);		 
-		 
+		$query="DELETE FROM `tbl_chars_name` WHERE `id_chars_name` = '$id'";		
+		$result = $db->query($query) or die($mysqli->error.__LINE__);		 		
 		$db->close();	 
 		# JSON-encode the response
-		echo $json_response = json_encode($id);
+		return $json_response = json_encode($id);
 	}
 	
 	
