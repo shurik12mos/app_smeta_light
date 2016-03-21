@@ -47,7 +47,7 @@ var app = angular.module('myApp.section', ['ngRoute'])
 	$scope.delete_charName = function(id) {
 		var deleteCharName = new SectionOne();		
 		deleteCharName.id = id;		
-		deleteCharName.$delete({id: id}).then(function(response) {			
+		deleteCharName.$delete({id: id}).then(function(response, headers) {				
 			getSection(id_section);
 		});	
 	}

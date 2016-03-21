@@ -9,7 +9,7 @@ var app = angular.module('myApp.category', ['ngRoute'])
 		var categories = Category.query(function(){
 			$scope.categories = categories;
 			if (scope.categories.length>0) {
-				scope.active_category = scope.categories[0].id_category;
+				scope.active_category = scope.categories[0].category_id;
 				scope.getSections(scope.active_category);
 								
 				scope.categories[0].active = true;				
@@ -33,27 +33,28 @@ var app = angular.module('myApp.category', ['ngRoute'])
 
 	$scope.update_category = function (category, name, desc, $scope) {
 		var updateCategory = new Category();
-		updateCategory.id_category = category.id_category;
+		updateCategory.category_id = category.category_id;
 		updateCategory.name = name;
 		updateCategory.desc =desc;
 		category.name = name;
 		category.description = desc;
+		console.log(updateCategory);
 		updateCategory.$update().then(function (response) {
-				
+			listCategory();	
 		});		
 	}
 	
 	$scope.delete_category = function (id) {
 		
 		var del = new Category();
-		del.$delete({id: id}).then(function(response) {
+		del.$delete({id: id}).then(function(response) {			
 			listCategory();						
 		});			
 	}
 	
 	$scope.getSections = function(id) {			
 		$scope.active_category = id;		
-		var getSection = Section.query({id_category: id},function(response) {			
+		var getSection = Section.query({category_id: id},function(response) {			
 			$scope.sections = response;				
 		});		
 	}		
@@ -63,9 +64,10 @@ var app = angular.module('myApp.category', ['ngRoute'])
 		newSection.name = this.sectionName;		
 		newSection.desc = this.sectionDescription;
 		newSection.keywords = this.sectionKeywords;
-		newSection.id_category = this.active_category;
+		newSection.category_id = this.active_category;
 		
-		if (newSection.id_category) {
+		
+		if (newSection.category_id) {
 			this.sectionName="";
 			this.sectionDescription="";
 			this.sectionKeywords = "";
@@ -77,7 +79,7 @@ var app = angular.module('myApp.category', ['ngRoute'])
 
 	$scope.update_section = function (section, name, desc, keywords, $scope) {
 		var updateSection = new Section();
-		updateSection.id_job_section = section.id_job_section;
+		updateSection.job_section_id = section.job_section_id;
 		updateSection.name = name;
 		updateSection.description =desc;
 		updateSection.keywords =keywords;		
@@ -87,8 +89,8 @@ var app = angular.module('myApp.category', ['ngRoute'])
 	}
 	
 	$scope.delete_section = function (id) {		
-		var del = new Section();
-		del.$delete({id: id}).then(function(response) {
+		var del = new Section();		
+		del.$delete({job_section_id: id}).then(function(response) {
 			scope.getSections(scope.active_category);
 		});			
 	}
@@ -97,7 +99,7 @@ var app = angular.module('myApp.category', ['ngRoute'])
 	$scope.activatedCategory = function(id) {		
 		var length = $scope.categories.length;
 		for (var i=0; i<length; i++) {
-			if (scope.categories[i].id_category == id) {				
+			if (scope.categories[i].category_id == id) {				
 				scope.categories[i].active = true;
 			} else {				
 				scope.categories[i].active = false;

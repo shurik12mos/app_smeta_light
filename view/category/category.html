@@ -2,24 +2,24 @@
 	<div class="row">
 		<div class="col-md-6">	
 			<h3>Категории</h3>
-				<div ng-repeat="category in categories | orderBy : 'name'" class="row" ng-click="getSections(category.id_category); activatedCategory(category.id_category)">
+				<div ng-repeat="category in categories | orderBy : 'category_name'" class="row" ng-click="getSections(category.category_id); activatedCategory(category.category_id)">
 					<div ng-class="{active: category.active}" class="category" ng-show="changeCategory" ng-init="changeCategory = true">
-						<h4>{{category.name}}</h4>
-						<p>{{category.description}}</p>						
+						<h4>{{category.category_name}}</h4>
+						<p>{{category.category_description}}</p>						
 					</div>
 					
 					<div ng-hide="changeCategory">
 						<h3>Название категории</h3>
-						<textarea rows="2" ng-model="categoryNameChange" ng-init="categoryNameChange=category.name" style="width: 100%;"></textarea>
+						<textarea rows="2" ng-model="categoryNameChange" ng-init="categoryNameChange=category.category_name" style="width: 100%;"></textarea>
 						<h4>Описание категории</h4>
-						<textarea rows="2" ng-model="categoryDescChange" ng-init="categoryDescChange=category.description" style="width: 100%;"></textarea>
+						<textarea rows="2" ng-model="categoryDescChange" ng-init="categoryDescChange=category.category_description" style="width: 100%;"></textarea>
 						<button ng-click="update_category(category, categoryNameChange, categoryDescChange); changeCategory = true;" class="btn btn-success">Сохранить</button>
-						<button ng-click="changeCategory = true; categoryNameChange=category.name; categoryDescChange=category.description" class="btn btn-danger">Отмена</button>
+						<button ng-click="changeCategory = true; categoryNameChange=category.category_name; categoryDescChange=category.category_description" class="btn btn-danger">Отмена</button>
 					</div>
 					
 					<div ng-show="changeCategory">
 						<button ng-click="changeCategory = false" class="btn btn-primary">Обновить</button>
-						<button ng-click="delete_category(category.id_category)" class="btn btn-primary">Удалить</button>
+						<button ng-click="delete_category(category.category_id)" class="btn btn-primary">Удалить</button>
 					</div>	
 				</div>
 			
@@ -34,26 +34,26 @@
 		<!-- Разделы -->
 		<div class="col-md-6">
 			<h3>Разделы</h3>
-			<div ng-repeat="section in sections | orderBy : 'name'" class="row" ng-init="changeSection = true">
+			<div ng-repeat="section in sections | orderBy : 'job_section_name'" class="row" ng-init="changeSection = true">
 				<div class="section" ng-show="changeSection">
-					<h4 ><a ng-href="#/category/{{section.id_job_section}}">{{section.name}}</a></h4>
-					<p>{{section.description}}</p>
+					<h4 ><a ng-href="#/category/{{section.job_section_id}}">{{section.job_section_name}}</a></h4>
+					<p>{{section.job_section_description}}</p>
 				</div>
 				
 				<div ng-hide="changeSection">
 					<h3>Название категории</h3>
-					<textarea rows="2" ng-model="sectionNameChange" ng-init="sectionNameChange=section.name" style="width: 100%;"></textarea>
+					<textarea rows="2" ng-model="sectionNameChange" ng-init="sectionNameChange=section.job_section_name" style="width: 100%;"></textarea>
 					<h4>Описание категории</h4>
-					<textarea rows="2" ng-model="sectionDescChange" ng-init="sectionDescChange=section.description" style="width: 100%;"></textarea>
+					<textarea rows="2" ng-model="sectionDescChange" ng-init="sectionDescChange=section.job_section_description" style="width: 100%;"></textarea>
 					<h4>Ключевые слова</h4>
-					<textarea rows="2" ng-model="sectionKeywordsChange" ng-init="sectionKeywordsChange=section.keywords" style="width: 100%;"></textarea>
+					<textarea rows="2" ng-model="sectionKeywordsChange" ng-init="sectionKeywordsChange=section.job_section_keywords" style="width: 100%;"></textarea>
 					<button ng-click="update_section(section, sectionNameChange, sectionDescChange, sectionKeywordsChange); changeSection = true;" class="btn btn-success">Сохранить</button>
-					<button ng-click="changeSection = true; sectionNameChange=section.name; sectionDescChange=section.description; sectionKeywordsChange=section.keywords" class="btn btn-danger">Отмена</button>
+					<button ng-click="changeSection = true; sectionNameChange=section.job_section_name; sectionDescChange=section.job_section_description; sectionKeywordsChange=section.job_section_keywords" class="btn btn-danger">Отмена</button>
 				</div>
 				
 				<div ng-show="changeSection">
 					<button ng-click="changeSection = false" class="btn btn-primary">Обновить</button>
-					<button ng-click="delete_section(section.id_job_section)" class="btn btn-primary">Удалить</button>
+					<button ng-click="delete_section(section.job_section_id)" class="btn btn-primary">Удалить</button>
 				</div>
 			</div>
 			

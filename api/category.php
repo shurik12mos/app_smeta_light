@@ -7,8 +7,8 @@
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		if (!$_GET["id_category"]) {
-			$query="SELECT * FROM tbl_category";
+		if (!$_GET["category_id"]) {
+			$query="SELECT * FROM tbl_category GROUP BY `category_name`";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			 
 			$arr = array();
@@ -17,9 +17,9 @@
 				$arr[] = $row;
 				}
 			}
-		} elseif ($_GET["id_category"]) {
-			$id = $_GET["id_category"];
-			$query="SELECT * FROM tbl_job_section WHERE `id_job_section` = (SELECT `tbl_job_section_id_job_section` FROM `tbl_job_section_has_tbl_category` WHERE `tbl_category_id_category` = '$id')";
+		} elseif ($_GET["category_id"]) {
+			$id = $_GET["category_id"];
+			$query="SELECT * FROM tbl_job_section WHERE `job_section_id` = (SELECT `job_section_id` FROM `tbl_job_section_has_tbl_category` WHERE `category_id` = '$id') GROUP BY `job_section_name`";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			 
 			$arr = array();
@@ -48,7 +48,7 @@
 		$name = $ar["name"];
 		$desc = $ar["desc"];		
 			
-		$query="INSERT INTO `tbl_category`(`name`, `description`) VALUES ('$name', '$desc')";
+		$query="INSERT INTO `tbl_category`(`category_name`, `category_description`) VALUES ('$name', '$desc')";
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 		 
 		$db->close();	 
@@ -63,14 +63,14 @@
 		$params = trim(file_get_contents('php://input'));
 		$ar=json_decode($params);
 		$ar = (array)$ar;	
-		$id = (int) $ar["id_category"];
+		$id = (int) $ar["category_id"];
 		$name = $ar["name"];
 		$desc = $ar["desc"];
 		
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		$query="UPDATE `tbl_category` SET `name`= '$name', `description` = '$desc' WHERE `id_category` = '$id'";		
+		$query="UPDATE `tbl_category` SET `category_name`= '$name', `category_description` = '$desc' WHERE `category_id` = '$id'";		
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 		$db->close();
 		# JSON-encode the response
@@ -88,7 +88,7 @@
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		$query="DELETE FROM `tbl_category` WHERE `id_category` = '$id'";
+		$query="DELETE FROM `tbl_category` WHERE `category_id` = '$id'";
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 				 
 		$db->close();	 

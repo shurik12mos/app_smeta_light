@@ -22,40 +22,39 @@
 			
 			$query="SELECT * FROM `tbl_chars_name` WHERE `tbl_job_section_id_job_section`='$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
-			
-			if($result->num_rows > 0) {
-				$i = 0;
+			$chars = array();
+			if($result->num_rows > 0) {				
 				while($row = $result->fetch_assoc()) {				
-					$arr["charNames"][$i] = $row;
-					$i = $i+1;
+				$chars[]= $row;						
 				}
 			}
+			
+			$arr["charNames"] = $chars;
 
-			$query="SELECT * FROM `tbl_jobs` WHERE `tbl_job_section_id_job_section`='$id'";
+			$query="SELECT * FROM tbl_job_section, tbl_category, tbl_jobs WHERE tbl_job_section.id_job_section = 1 AND tbl_category.id_category = (SELECT tbl_category_id_category FROM tbl_job_section_has_tbl_category WHERE tbl_job_section_id_job_section = 1)AND tbl_jobs.tbl_job_section_id_job_section = '$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
+			$jobs = array();
 			
 			if($result->num_rows > 0) {
 				$i = 0;
 				while($row = $result->fetch_assoc()) {				
-					$arr["jobs"][$i] = $row;
-					$id_jobs = $arr["jobs"][$i]["id_jobs"];
-					$arr["jobs"][$i]["sas"] = $id_jobs;
+					$jobs[$i] = $row;
+					$id_jobs = $jobs[$i]["id_jobs"];					
 					
-					$queryIn2 = "SELECT * FROM  `tbl_chars` WHERE  `id_chars` IN (SELECT  `tbl_chars_id_chars` FROM  `tbl_jobs_has_tbl_chars` WHERE  `tbl_jobs_id_jobs` =  '$id_jobs')";
+					$queryIn2 = "SELECT * FROM  `tbl_chars` INNER JOIN  `tbl_chars_name` ON tbl_chars.tbl_chars_name_id_chars_name = tbl_chars_name.id_chars_name WHERE  `id_chars` IN (SELECT  `tbl_chars_id_chars` FROM  `tbl_jobs_has_tbl_chars` WHERE  `tbl_jobs_id_jobs` =  '$id_jobs')";
 					$resultIn = $db->query($queryIn2) or die($mysqli->error.__LINE__);
-					if($resultIn->num_rows > 0) {
-						$j = 0;
+					$charvalue = array();
+					if($resultIn->num_rows > 0) {							
 						while($row2 = $resultIn->fetch_assoc()) {				
-							$arr["jobs"][$i]["chars"][$j] = $row2;
-							$j = $j+1;
+							$charvalue[] = $row2;							
 						}
-					}
+					}					
 					
-					
+					$jobs[$i]["chars"] = $charvalue;					
 					$i = $i+1;
-				}
-				
+				}				
 			}
+			$arr["jobs"] = $jobs;
 		}		
 		
 		$db->close(); 
