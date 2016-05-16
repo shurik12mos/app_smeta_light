@@ -7,8 +7,10 @@ var app = angular.module('myApp.section', ['ngRoute'])
 	$scope.params = $routeParams;
 	
 	var id_section = $scope.params.id_job_section;	
-	function getSection(id) {		
+	function getSection(id) {	
+		console.log(id);
 		var section = SectionOne.get({id_section: id}, function(response) {
+			console.log(response);
 			$scope.section = section;
 			
 		});		
@@ -26,6 +28,7 @@ var app = angular.module('myApp.section', ['ngRoute'])
 		this.charName="";
 		this.charDescription="";
 		this.charMeasure="";
+		console.log(newChar);
 		newChar.$save().then(function (responce){
 			getSection(id_section);		
 		})
@@ -53,3 +56,23 @@ var app = angular.module('myApp.section', ['ngRoute'])
 	}
 	
 }]);
+
+app.directive("addJob", function(Job, Material, Instrument){
+	return {
+		restrict: "E",
+		templateUrl: "directives/addJob/addJob.html",		
+		link: function(scope, element, attrs){
+			scope.add_category = function ($scope) {				
+				var newCategory = new Category();
+				newCategory.name = this.categoryName;
+				newCategory.desc = this.categoryDescription;
+				this.categoryName="";
+				this.categoryDescription="";
+				newCategory.$save().then(function (responce){
+					scope.listCategory();
+					scope.addCategoryShow = false;
+				})			
+			}			
+		}
+	}
+});

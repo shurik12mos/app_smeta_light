@@ -1,0 +1,69 @@
+<div class="materials" ng-show="model.materialAll">
+	<div class="materialsChars">
+		<h4>Характеристики материала (название, еденицы измерения)</h4>
+		<button type="button" class="btn btn-primary" ng-init="showAddMaterialChar = false" ng-click="showAddMaterialChar = true">Добавить характеристику</button>
+		
+		<div class="addCategory" ng-show="showAddMaterialChar">	
+			<div>
+				<h3>Добавить характеристику</h3>
+				<form name="addSection" ng-submit="model.addChars(addCharsName, addCharsMeasure); showAddMaterialChar = false; addCharsName='';addCharsMeasure=''" >
+					<div class="form-group">								
+						<input type="text" class="form-control" ng-model="addCharsName" placeholder="Введите название характеристики" required>								
+					</div>
+					<div class="form-group">								
+						<input class="form-control" ng-model="addCharsMeasure" placeholder="Введите еденицы измерения">								
+					</div>						
+					<button type="submit"  class="btn btn-primary">Отправить</button>
+					<button type="button" class="btn btn-danger" ng-click="showAddMaterialChar = false">Отмена</button>
+				</form>				
+			</div>
+		</div>
+		
+		<div class="chars" ng-repeat="char in model.chars">
+			<div class="materialCategory hoverColor">
+				<p>{{$index+1}}. {{char.name}}, {{char.measure}}</p>
+				<ul class="values">
+					<li ng-repeat="value in char.values | orderBy: 'value'" >
+						<label>
+							|  {{char.name}} {{value.value}} {{char.measure}}
+							<input type="checkbox" ng-init="value.active = false" ng-model="value.active" />
+						</label>	
+					</li>									
+				</ul>
+				<!-- change and delete char -->
+				<span class="changeCategory glyphicon glyphicon-pencil" ng-click=""></span>
+				<span class="deleteCategory glyphicon glyphicon-remove" ng-click="model.deleteChars(char.id)"></span>
+			</div>						
+		</div>
+		<div class="producers">
+			<h4>Производители</h4>
+			<ul class="values materialCategory hoverColor">
+				<li ng-repeat="producer in model.producers | orderBy: 'name' | producerFilter: model.categories.acive_category_id" >
+					<label>
+						|  {{producer.name}}
+						<input type="checkbox" ng-init="producer.active = false" ng-model="producer.active"/>
+					</label>	
+				</li>									
+			</ul>	
+		</div>				
+	</div>
+	<hr/>
+	<button type="button" class="btn btn-primary" ng-click="model.showAddMaterial(section_id)"  ng-disabled = "model.canAddMaterial">Добавить материал</button>
+	<div class="materialsList">
+		<div class="materialItem">
+			<p>Название</p>
+			<p>Ед.измерения</p>
+			<p>Цена, грн</p>
+		</div>
+		<div class="materialItem materialCategory hoverColor" ng-repeat = "material in model.materialAll | materialFilter:model.producers:model.chars | orderBy:'charInString' ">
+			<p>{{material.charInString}}</p>
+			<p>{{material.measure}}</p>
+			<p>{{material.price}}</p>
+			<!-- change and delete category -->
+			<span class="changeCategory glyphicon glyphicon-pencil" ng-click="model.showChangeMaterial(material.id);model.showChangeMaterialForm = true; model.priceChanged = false"></span>
+			<span class="deleteCategory glyphicon glyphicon-remove" ng-click="model.deleteMaterial(material.id)"></span>
+		</div>			
+		<add-material></add-material>
+		<change-material></change-material>
+	</div>	
+</div>

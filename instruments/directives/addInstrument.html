@@ -1,0 +1,26 @@
+<div class="addCategory" ng-init="showAddInstrument = false" ng-show="showAddInstrument">	
+	<div>
+		<h3>Добавить инструмент</h3>
+		<form name="instrument" ng-submit="instruments.addInstrument(form);showAddInstrument = false">
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="form.name" placeholder="Введите название инструмента" required>								
+			</div>
+			<div class="form-group">								
+				<textarea class="form-control" ng-model="form.characteristics" placeholder="Введите основные характеристики" required></textarea>								
+			</div>	
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="form['price-usd']" placeholder="Введите стоимость в $" required>								
+			</div>	
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="form['life-time']" placeholder="Введите количество часов работы" required>								
+			</div>	
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="form.keywords" placeholder="Введите ключевые слова для поиска" required>								
+			</div>	
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="showAddInstrument = false">Отмена</button>
+		</form>
+	</div>
+</div>
+
+<button type="button" class="btn btn-primary" ng-click="showAddInstrument = true">Добавить инструмент</button>

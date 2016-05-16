@@ -1,0 +1,15 @@
+<div class="materialCategory hoverColor row" ng-mouseover="hover = true" ng-mouseleave="hover = false">
+	<div class="col-sm-6">
+		<p class="bold">Название: {{oneInstrument.name}}</p>
+		<p class="bold">Характеристики: {{oneInstrument.characteristics}}</p>
+	</div>
+	<div class="col-sm-6 hidly" ng-class="{isshow: hover}">
+		<p>Стоимость: {{oneInstrument['price-usd'] | currency: $: 2}}</p>
+		<p>Срок работы, ч: {{oneInstrument['life-time'] | number: 2}}</p>
+		<p>Ключевые слова: {{oneInstrument.keywords}}</p>	
+	</div>	
+	<span class="changeCategory glyphicon glyphicon-pencil" ng-click="showChangeInstrument = true"></span>
+	<span class="deleteCategory glyphicon glyphicon-remove" ng-click="instruments.deleteInstrument(oneInstrument.id)"></span>
+</div>	
+<change-instrument ng-show="showChangeInstrument"></change-instrument>
+	

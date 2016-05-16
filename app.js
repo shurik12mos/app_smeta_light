@@ -2,59 +2,26 @@
 
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
-  'ngRoute',
-  'myApp.category', 
-  'myApp.section', 
-  'ngResource'
+  'ngRoute',  
+  'ngResource',
+  'myApp.material',
+  'myApp.instruments',
+  'myApp.commonChar'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
-  .when('/category/', {
-    templateUrl: 'view/category/category.html',
-    controller: 'CategoryCtrl'
-  })    
-  .when('/category/:id_job_section', {
-    templateUrl: 'view/section/section.html',
-    controller: 'SectionCtrl'
-  })  
-  .otherwise({redirectTo: '/category/'});
+  .when('/instruments/', {
+    templateUrl: '/instruments/view/instruments.html',
+    controller: 'InstrumentsCtrl'
+  })
+  .when('/commonChar/', {
+    templateUrl: '/commonChar/view/commonChar.html',
+    controller: 'CommonCharCtrl'
+  })   
+  .when('/materials/', {
+    templateUrl: 'materials/view/materials.html',
+    controller: 'MaterialCtrl'
+  }) 
+  .otherwise({redirectTo: '/materials/'});
 }])
 app.controller('AppCtrl', [function(){}]);
-
-app.factory('Category', function($resource) {
-	var Category = $resource('api/category.php',	
-			{},
-			{
-				update: {
-						method: "PUT"
-						}
-			}
-		); 
-		return Category;
-	});
-
-app.factory('Section', function($resource) {
-	var Section = $resource('api/section.php',	
-			{},
-			{
-				update: {
-						method: "PUT"
-						}
-			}
-		); 
-		return Section;
-	});
-	
-app.factory('SectionOne', function($resource) {
-	var Section = $resource('api/sectionOne.php',	
-			{},
-			{
-				update: {
-						method: "PUT"
-						}
-			}
-		); 
-		return Section;
-	});
-
-

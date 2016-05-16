@@ -1,0 +1,14 @@
+<div class="addCategory" ng-show="addCategoryShow" ng-init="addCategoryShow = false">
+	<div>
+		<h3>Добавить категорию</h3>
+		<form name="category" ng-submit="add_category()">
+			<input type="text" ng-model="categoryName" name="name" ng-maxlength="200" required ng-trim="false" placeholder="Введите название категории"/>
+			<textarea type="text" ng-model = "categoryDescription" name="description" required ng-trim="false" placeholder="Введите описание категории"></textarea>				
+			<button type="submit" id="submitCategory" class="btn btn-primary" ng-disabled="category.$invalid || category.$pristine" >Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="addCategoryShow = false">Отмена</button>
+		</form>
+	</div>
+	
+</div>
+
+<button type="button" id="addCategory" ng-click="addCategoryShow = true" class="btn btn-primary">Добавить</button>

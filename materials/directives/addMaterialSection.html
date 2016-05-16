@@ -1,0 +1,20 @@
+<button type="button" class="btn btn-primary" ng-click="showAddSection = true">Добавить раздел</button>
+
+<div class="addCategory" ng-show="showAddSection">	
+	<div>
+		<h3>Добавить раздел</h3>
+		<form name="addSection" ng-submit="model.addSection(category_id, model.sectionName, model.sectionDescription, model.sectionKeywords); showAddSection = false">
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="model.sectionName" placeholder="Введите название раздела">								
+			</div>
+			<div class="form-group">								
+				<textarea class="form-control" ng-model="model.sectionDescription" placeholder="Введите описание раздела"></textarea>								
+			</div>	
+			<div class="form-group">								
+				<textarea class="form-control" ng-model="model.sectionKeywords" placeholder="Введите ключевые слова для поиска"></textarea>								
+			</div>	
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="showAddSection = false">Отмена</button>
+		</form>
+	</div>
+</div>

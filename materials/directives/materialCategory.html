@@ -1,0 +1,16 @@
+<div ng-repeat="category in model.categories">
+	<div class="materialCategory hoverColor" ng-class="{active: category.active}" ng-init="category_id = category.id;" ng-click="model.listMaterialSection(category_id)">
+		<h3>{{category.name}}</h3>
+		<p>{{category.description}}</p>	
+		<!-- change and delete category -->
+		<span class="changeCategory glyphicon glyphicon-pencil" ng-click="model.showChangeMaterialCategory(category_id, category.name, category.description)"></span>
+		<span class="deleteCategory glyphicon glyphicon-remove" ng-click="model.deleteMaterialCategory(category_id, $index)"></span>
+	</div>
+	<div class="materialSections" ng-init="showMaterialSections = false;" ng-show="category.active">
+		<add-material-section></add-material-section>
+		<div>
+			<material-section></material-section>
+		</div>
+	</div>	
+</div>
+	

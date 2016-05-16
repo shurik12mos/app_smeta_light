@@ -1,0 +1,18 @@
+<div ng-repeat = "oneChar in feature.chars | orderBy: 'name' | filter: search">
+	<div class="materialCategory hoverColor row">
+		<div class="col-sm-6">
+			<p class="bold">Название: {{oneChar.name}}</p>
+			<p class="bold">Еденица измерения: {{oneChar.measure}}</p>
+			<p class="bold">Описание: {{oneChar.description}}</p>
+		</div>
+		<div class="col-sm-6">
+			<div ng-repeat="value in oneChar.values">
+				<p>{{value.value}} {{oneChar.measure}}, коэффициент - {{value.coefficient}}</p>
+			</div>
+		</div>	
+		<span class="changeCategory glyphicon glyphicon-pencil" ng-click="showChangeChar = true;"></span>
+		<span class="deleteCategory glyphicon glyphicon-remove" ng-click="feature.deleteChar(oneChar.id)"></span>
+	</div>	
+	<change-char ng-show="showChangeChar"></change-char>
+</div>
+	

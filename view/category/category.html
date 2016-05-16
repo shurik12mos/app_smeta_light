@@ -21,14 +21,8 @@
 						<button ng-click="changeCategory = false" class="btn btn-primary">Обновить</button>
 						<button ng-click="delete_category(category.category_id)" class="btn btn-primary">Удалить</button>
 					</div>	
-				</div>
-			
-			<h3>Добавить категорию</h3>
-			<form name="category" ng-submit="add_category()">
-				<input type="text" ng-model="categoryName" name="name" ng-maxlength="200" required ng-trim="false"/>
-				<input type="text" ng-model = "categoryDescription" name="description" required ng-trim="false"/>				
-				<button type="submit" id="submitCategory" class="btn btn-primary" ng-disabled="category.$invalid || category.$pristine" >Отправить</button>
-			</form>
+				</div>	
+				<add-category></add-category>
 		</div>
 		
 		<!-- Разделы -->

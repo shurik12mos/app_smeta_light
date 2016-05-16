@@ -1,16 +1,7 @@
 <?php
 	require('config.php'); 
 	
-	/*$queryIn2 = "SELECT * FROM  `tbl_materials`, `tbl_material_section`, `tbl_material_category`, `tbl_producer` WHERE  `id_materials` IN (SELECT  `tbl_materials_id_materials` FROM  `tbl_jobs_has_tbl_materials` WHERE  `tbl_jobs_id_jobs` =  '$id_jobs') AND (tbl_material_section.id_material_section = tbl_materials.tbl_material_section_id_material_section) AND (tbl_material_category.id_material_category = tbl_material_section.tbl_material_category_id_material_category) AND (tbl_materials.tbl_producer_id_producer = tbl_producer.id_producer)";
-					$resultIn = $db->query($queryIn2) or die($mysqli->error.__LINE__);
-					if($resultIn->num_rows > 0) {
-						$materials = array();
-						while($row2 = $resultIn->fetch_assoc()) {				
-							$materials[] = $row2;							
-						}
-					}
-
-	*/				
+	
 	if( $_SERVER['REQUEST_METHOD'] == 'GET') {
 		
 		// выбираем базу данных
@@ -19,7 +10,7 @@
 		
 		if ($_GET["id_job"]){
 			$id = $_GET["id_job"];
-			$query="SELECT * FROM tbl_jobs WHERE `id_jobs`='$id'";
+			$query="SELECT * FROM tbl_jobs WHERE `jobs_id`='$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			
 			$arr = array();
@@ -29,7 +20,7 @@
 				}
 			}
 			
-			$query="SELECT * FROM `tbl_chars_name` WHERE `tbl_job_section_id_job_section`='$id'";
+			$query="SELECT * FROM `tbl_chars_name` WHERE `job_section_id`='$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			
 			if($result->num_rows > 0) {
@@ -40,7 +31,7 @@
 				}
 			}
 
-			$query="SELECT * FROM `tbl_jobs` WHERE `tbl_job_section_id_job_section`='$id'";
+			$query="SELECT * FROM `tbl_jobs` WHERE `job_section_id`='$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			
 			if($result->num_rows > 0) {
@@ -50,7 +41,7 @@
 					$id_jobs = $arr["jobs"][$i]["id_jobs"];
 					$arr["jobs"][$i]["sas"] = $id_jobs;
 					
-					$queryIn2 = "SELECT * FROM  `tbl_chars` WHERE  `id_chars` IN (SELECT  `tbl_chars_id_chars` FROM  `tbl_jobs_has_tbl_chars` WHERE  `tbl_jobs_id_jobs` =  '$id_jobs')";
+					$queryIn2 = "SELECT * FROM  `tbl_chars` WHERE  `chars_id` IN (SELECT  `chars_id` FROM  `tbl_jobs_has_tbl_chars` WHERE  `jobs_id` =  '$id_jobs')";
 					$resultIn = $db->query($queryIn2) or die($mysqli->error.__LINE__);
 					if($resultIn->num_rows > 0) {
 						$j = 0;

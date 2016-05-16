@@ -1,0 +1,16 @@
+<div class="addCategory" ng-show="model.showAddCategory">	
+	<div>
+		<h3>Добавить категорию</h3>
+		<form name="category" ng-submit="model.addMaterialCategory(model.CategoryName, model.CategoryDescription); model.showAddCategory = false">
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="model.CategoryName" placeholder="Введите название категории" required>								
+			</div>
+			<div class="form-group">								
+				<textarea class="form-control" ng-model="model.CategoryDescription" placeholder="Введите описание категории" required></textarea>								
+			</div>		
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="model.showAddCategory = false">Отмена</button>
+		</form>
+	</div>
+</div>
+	

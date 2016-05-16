@@ -1,0 +1,56 @@
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3 scrollIn">
+				<h3>Категории материалов</h3>
+				<button type="button" class="btn btn-primary" ng-init="model.showAddCategory = false" ng-click="model.showAddCategory = true" ng-hide="showAddCategory">
+					Добавить категорию
+				</button>
+				<div>
+					<add-material-category></add-material-categories>	
+				</div>	
+				<hr/>
+				<div>
+					<material-category></material-category>
+				</div>
+				<div class="addCategory" ng-init = "model.showChangeCategory = false" ng-show="model.showChangeCategory" ng-cloak>	
+					<div>
+						<h3>Изменить категорию</h3>
+						<form name="changeCategory" ng-submit="model.changeMaterialCategory(model.changeCategoryName, model.changeCategoryDescription); model.showChangeCategory = false">
+							
+							<div class="form-group">								
+								<input type="text" class="form-control" ng-model="model.changeCategoryName" placeholder="Введите название категории">								
+							</div>
+							<div class="form-group">								
+								<textarea class="form-control" ng-model="model.changeCategoryDescription" placeholder="Введите описание категории"></textarea>								
+							</div>		
+							<button type="submit"  class="btn btn-primary">Отправить</button>
+							<button type="button" class="btn btn-danger" ng-click="model.showChangeCategory = false">Отмена</button>
+						</form>
+					</div>
+				</div>
+				<div class="addCategory" ng-init = "model.showChangeSection = false" ng-show="model.showChangeSection">	
+					<div>
+						<h3>Изменить раздел</h3>
+						<form name="changeCategory" ng-submit="model.changeMaterialSection(model.changeSectionName, model.changeSectionDescription, model.changeSectionKeywords); model.showChangeSection = false">							
+							<div class="form-group">								
+								<input type="text" class="form-control" ng-model="model.changeSectionName" placeholder="Введите название раздел" required>								
+							</div>
+							<div class="form-group">								
+								<textarea class="form-control" ng-model="model.changeSectionDescription" placeholder="Введите описание раздел" required></textarea>								
+							</div>
+							<div class="form-group">								
+								<input type="text" class="form-control" ng-model="model.changeSectionKeywords" placeholder="Введите ключевые слова">								
+							</div>
+							<button type="submit"  class="btn btn-primary">Отправить</button>
+							<button type="button" class="btn btn-danger" ng-click="model.showChangeSection = false">Отмена</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9 col-push-md-3 fixedAndScroll">
+				<materials></materials>
+			</div>
+		</div>
+	</div>	
+</section>

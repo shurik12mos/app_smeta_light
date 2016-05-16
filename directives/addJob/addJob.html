@@ -1,0 +1,22 @@
+<div class="addJob" ng-show="addJobShow" ng-init="addJobShow = false">
+	<div>
+		<h3>Добавить работу</h3>
+		<form name="job" ng-submit="add_job()">
+			<input type="text" ng-model="jobName" name="name" ng-maxlength="200" required ng-trim="false" placeholder="Введите название работы"/>
+			<textarea type="text" ng-model = "jobDescription" name="description" required ng-trim="false" placeholder="Введите описание работы"></textarea>	
+			<textarea type="text" ng-model = "jobHowEstimated" name="description" required ng-trim="false" placeholder="Введите нормы приемки работы"></textarea>	
+			<textarea type="text" ng-model = "jobHowDoMaster" name="description" required ng-trim="false" placeholder="Введите рекомендации по работе"></textarea>	
+			<input type="text" ng-model="jobMeasure" name="name" ng-maxlength="200" required ng-trim="false" placeholder="Введите еденицы измерения"/>
+			<input type="text" ng-model="jobRank" name="name" ng-maxlength="200" required ng-trim="false" placeholder="Введите разряд работы (от 1 до 2)"/>
+			<h4>Материалы</h4>
+			<choose-material></choose-material>
+			<h4>Инструменты</h4>
+			<choose-instrument></choose-instrument>
+			
+			<button type="submit" id="submitJob" class="btn btn-primary" ng-disabled="job.$invalid || job.$pristine" >Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="addCategoryShow = false">Отмена</button>
+		</form>
+	</div>	
+</div>
+
+<button type="button" id="addJob" ng-click="addJobShow = true" class="btn btn-primary">Добавить</button>

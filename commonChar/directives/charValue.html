@@ -1,0 +1,13 @@
+<div class="row value">
+	<div class="col-sm-5">
+		<div class="form-group">								
+			<input type="text" class="form-control input-small" ng-model="value.value" placeholder="Значение характеристики" required>								
+		</div>	
+	</div>
+	<div class="col-sm-5">
+		<div class="form-group">								
+			<input type="text" class="form-control input-small" ng-model="value.coefficient" placeholder="Введите коэффициент" required>								
+		</div>	
+	</div>
+	<button type="button" class="col-sm-2 delValue" ng-click="delValue($index)"><span class="changeCategory glyphicon glyphicon glyphicon-minus"></span></button>
+</div>

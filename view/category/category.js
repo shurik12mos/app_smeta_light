@@ -3,33 +3,20 @@
 var app = angular.module('myApp.category', ['ngRoute'])
 .controller('CategoryCtrl', ['$http', '$scope', 'Category', 'Section', function($http, $scope, Category, Section) {
 	
-	var scope = $scope;	
+	var scope = $scope;		
 	
-	function listCategory() {
+	scope.listCategory = function listCategory() {
 		var categories = Category.query(function(){
 			$scope.categories = categories;
 			if (scope.categories.length>0) {
 				scope.active_category = scope.categories[0].category_id;
-				scope.getSections(scope.active_category);
-								
+				scope.getSections(scope.active_category);								
 				scope.categories[0].active = true;				
 			} 			
 		});
 	}
 	
-	listCategory();	
-	
-	$scope.add_category = function ($scope) {			
-		var newCategory = new Category();
-		newCategory.name = this.categoryName;
-		newCategory.desc = this.categoryDescription;
-		this.categoryName="";
-		this.categoryDescription="";
-		newCategory.$save().then(function (responce){
-			listCategory();			
-		})
-		
-	}
+	scope.listCategory();
 
 	$scope.update_category = function (category, name, desc, $scope) {
 		var updateCategory = new Category();
@@ -40,7 +27,7 @@ var app = angular.module('myApp.category', ['ngRoute'])
 		category.description = desc;
 		console.log(updateCategory);
 		updateCategory.$update().then(function (response) {
-			listCategory();	
+			scope.listCategory();	
 		});		
 	}
 	
@@ -48,7 +35,7 @@ var app = angular.module('myApp.category', ['ngRoute'])
 		
 		var del = new Category();
 		del.$delete({id: id}).then(function(response) {			
-			listCategory();						
+			scope.listCategory();						
 		});			
 	}
 	
@@ -108,3 +95,23 @@ var app = angular.module('myApp.category', ['ngRoute'])
 	}
 			
 }]);
+
+app.directive('addCategory', function(Category){
+	return {
+		restrict: "E",
+		templateUrl: "directives/addCategory/addCategory.html",		
+		link: function(scope, element, attrs){
+			scope.add_category = function ($scope) {				
+				var newCategory = new Category();
+				newCategory.name = this.categoryName;
+				newCategory.desc = this.categoryDescription;
+				this.categoryName="";
+				this.categoryDescription="";
+				newCategory.$save().then(function (responce){
+					scope.listCategory();
+					scope.addCategoryShow = false;
+				})			
+			}			
+		}
+	}
+});

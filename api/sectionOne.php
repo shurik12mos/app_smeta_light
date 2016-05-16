@@ -10,7 +10,7 @@
 		
 		if ($_GET["id_section"]){
 			$id = $_GET["id_section"];
-			$query="SELECT * FROM tbl_job_section WHERE `id_job_section`='$id'";
+			$query="SELECT * FROM tbl_job_section WHERE `job_section_id`='$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			
 			$arr = array();
@@ -20,7 +20,7 @@
 				}
 			}
 			
-			$query="SELECT * FROM `tbl_chars_name` WHERE `tbl_job_section_id_job_section`='$id'";
+			$query="SELECT * FROM `tbl_chars_name` WHERE `job_section_id`='$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			$chars = array();
 			if($result->num_rows > 0) {				
@@ -31,7 +31,7 @@
 			
 			$arr["charNames"] = $chars;
 
-			$query="SELECT * FROM tbl_job_section, tbl_category, tbl_jobs WHERE tbl_job_section.id_job_section = 1 AND tbl_category.id_category = (SELECT tbl_category_id_category FROM tbl_job_section_has_tbl_category WHERE tbl_job_section_id_job_section = 1)AND tbl_jobs.tbl_job_section_id_job_section = '$id'";
+			$query="SELECT * FROM tbl_job_section, tbl_category, tbl_jobs WHERE tbl_job_section.job_section_id = $id AND tbl_category.category_id = (SELECT tbl_category.category_id FROM tbl_job_section_has_tbl_category WHERE job_section_id = $id)AND tbl_jobs.job_section_id = '$id'";
 			$result = $db->query($query) or die($mysqli->error.__LINE__);
 			$jobs = array();
 			
@@ -41,7 +41,7 @@
 					$jobs[$i] = $row;
 					$id_jobs = $jobs[$i]["id_jobs"];					
 					
-					$queryIn2 = "SELECT * FROM  `tbl_chars` INNER JOIN  `tbl_chars_name` ON tbl_chars.tbl_chars_name_id_chars_name = tbl_chars_name.id_chars_name WHERE  `id_chars` IN (SELECT  `tbl_chars_id_chars` FROM  `tbl_jobs_has_tbl_chars` WHERE  `tbl_jobs_id_jobs` =  '$id_jobs')";
+					$queryIn2 = "SELECT * FROM  `tbl_chars` INNER JOIN  `tbl_chars_name` ON tbl_chars.chars_name_id = tbl_chars_name.chars_name_id WHERE  `chars_id` IN (SELECT  `chars_id` FROM  `tbl_jobs_has_tbl_chars` WHERE  `jobs_id` =  '$id_jobs')";
 					$resultIn = $db->query($queryIn2) or die($mysqli->error.__LINE__);
 					$charvalue = array();
 					if($resultIn->num_rows > 0) {							
@@ -76,7 +76,7 @@
 		$desc = $ar["description"];
 		$measure = $ar["measure"];	
 		
-		$query="INSERT INTO `tbl_chars_name`(`name`, `measure`, `description`, `tbl_job_section_id_job_section`) VALUES ('$name', '$measure', '$desc', '$id')";
+		$query="INSERT INTO `tbl_chars_name`(`chars_name_name`, `chars_name_measure`, `chars_name_description`, `job_section_id`) VALUES ('$name', '$measure', '$desc', '$id')";
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 		
 		$id_section = $db->insert_id;		
@@ -102,7 +102,7 @@
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		$query="UPDATE `tbl_chars_name` SET `name`= '$name', `description` = '$desc', `measure` = '$measure', `tbl_job_section_id_job_section` = '$id_section' WHERE `id_chars_name` = '$id'";		
+		$query="UPDATE `tbl_chars_name` SET `chars_name_name`= '$name', `chars_name_description` = '$desc', `chars_name_measure` = '$measure', `job_section_id` = '$id_section' WHERE `chars_name_id` = '$id'";		
 		$result = $db->query($query) or die($mysqli->error.__LINE__);
 		
 		$db->close();
@@ -121,7 +121,7 @@
 		// выбираем базу данных
 		$db->select_db("smeta_simple");
 		
-		$query="DELETE FROM `tbl_chars_name` WHERE `id_chars_name` = '$id'";		
+		$query="DELETE FROM `tbl_chars_name` WHERE `chars_name_id` = '$id'";		
 		$result = $db->query($query) or die($mysqli->error.__LINE__);		 		
 		$db->close();	 
 		# JSON-encode the response

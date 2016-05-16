@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row charName">		
-		<h1>{{section.name}}</h1>	
-		<p>{{section.description}}</p>		
+		<h1>{{section.job_section_name}}</h1>	
+		<p>{{section.job_section_description}}</p>		
 		<hr/>
 		<div class="col-md-4">
 			<h4>Характеристики раздела</h4>
@@ -14,11 +14,11 @@
 					<th>Описание</th>					
 				</tr>
 				<tr ng-repeat="char in section.charNames" >
-					<td class="change" ng-click = "update_charName(char.id_chars_name, charName, charMeasure, charDescription)">?</td>
-					<td class="delete" ng-click = "delete_charName(char.id_chars_name)">-</td>
-					<td><input type="text" ng-model="charName" ng-init="charName=char.name" style="width: 100%;"></input></td>
-					<td><input type="text" ng-model="charMeasure" ng-init="charMeasure=char.measure" style="width: 100%;"></input></td>					
-					<td><input type="text" ng-model="charDescription" ng-init="charDescription=char.description" style="width: 100%;"></input></td>					
+					<td class="change" ng-click = "update_charName(char.chars_name_id, charName, charMeasure, charDescription)">?</td>
+					<td class="delete" ng-click = "delete_charName(char.chars_name_id)">-</td>
+					<td><input type="text" ng-model="charName" ng-init="charName=char.chars_name_name" style="width: 100%;"></input></td>
+					<td><input type="text" ng-model="charMeasure" ng-init="charMeasure=char.chars_name_measure" style="width: 100%;"></input></td>					
+					<td><input type="text" ng-model="charDescription" ng-init="charDescription=char.chars_name_description" style="width: 100%;"></input></td>					
 				</tr>				
 			</table>
 			<div>
@@ -33,11 +33,12 @@
 		</div>
 		<div class="col-md-8">
 			<h2>Список работ</h2>
+			<add-job></add-job>
 			<table>
 				<tr >
 					<th>id</th>					
 					<th>Человеко-часы, ч</th>
-					<th ng-repeat="char in section.charNames">{{char.name}} / {{char.measure}}</th>
+					<th ng-repeat="char in section.charNames">{{char.chars_name_name}} / {{char.chars_name_measure}}</th>
 				</tr>
 				<tr ng-repeat="job in section.jobs">
 					<td>{{job.id_jobs}}</td>

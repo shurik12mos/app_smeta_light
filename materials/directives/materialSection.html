@@ -1,0 +1,9 @@
+<div ng-repeat="section in model.sections">
+	<div class="materialCategory hoverColor" ng-class="{active: section.active}" ng-init="section_id = section.id" ng-click="model.listMaterials(section_id, section.name)">
+		<h4>{{section.name}}</h4>
+		<p ng-show="section.active">{{section.description}}</p>	
+		<!-- change and delete category -->
+		<span class="changeCategory glyphicon glyphicon-pencil" ng-click="model.showChangeMaterialSection(section_id, section.name, section.description,section.keywords)"></span>
+		<span class="deleteCategory glyphicon glyphicon-remove" ng-click="model.deleteMaterialSection(section.id)"></span>
+	</div>
+</div>

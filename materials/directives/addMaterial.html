@@ -1,0 +1,51 @@
+<div class="addCategory" ng-show="model.showAddMaterialForm">	
+	<div>
+		<h3>Добавить материал</h3>
+		<form name="addSection" ng-submit="model.addMaterial();">
+			<div class="form-group">
+				<p>Еденицы измерения</p>
+				<input type="text" class="form-control" ng-model="model.lastMaterial.measure" placeholder="Введите еденицу измерения" >								
+			</div>			
+			<div class="form-group">
+				<p>Описание</p>
+				<input type="text" class="form-control" ng-model="model.lastMaterial.description" placeholder="Введите описание материала">								
+			</div>
+			<div class="form-group">
+				<p>Ключевые слова</p>
+				<input type="text" class="form-control" ng-model="model.lastMaterial.keywords" placeholder="Введите ключевые слова для поиска">								
+			</div>
+			<div class="form-group">
+				<p>Производитель (введите название или выберите из выпадающего списка)</p>
+				<div class="listDown" ng-init="showProducers=false">
+					<input type="text" class="form-control" ng-model="model.lastMaterial.producer_name" ng-change="showProducers = true;" placeholder="Введите название производителя или выберите из списка" required>	
+					<span class="glyphicon glyphicon-chevron-down" ng-show="!(model.lastMaterial.producer_name.length)" ng-init="showProducers = false" ng-click="showProducers = !showProducers"></span>
+					<div ng-show="showProducers" ng-click="showProducers=false">
+						<div class="list" ng-repeat="producer in model.producers | orderBy: 'name' | filter: model.lastMaterial.producer_name ">
+							<p ng-click="model.lastMaterial.producer_name = producer.name">{{producer.name}}</p>
+						</div>
+					</div>					
+				</div>				
+			</div>
+			<h4>Характеристики</h4>
+			<hr/>
+			<div class="materialsChar" ng-repeat="char in model.lastMaterial.char">
+				<div>
+					<span>Название: {{char.name}}; </span>
+					<span>еденицы измерения: {{char.measure}}</span>
+					<div class="form-group">							
+						<input type="text" class="form-control" ng-model="char.value" placeholder="Введите значение характеристики" required>								
+					</div>
+					<hr/>
+				</div>				
+			</div>
+			<h4>Цена</h4>
+			<hr/>
+			<div class="form-group">
+				<p>Цена, грн</p>
+				<input type="text" class="form-control" ng-model="model.lastMaterial.price" placeholder="Введите цену в гривнах" required>								
+			</div>
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="model.showAddMaterialForm = false">Отмена</button>			
+		</form>
+	</div>
+</div>

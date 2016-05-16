@@ -1,0 +1,24 @@
+<div class="addCategory" >	
+	<div>
+		<h3>{{name}}</h3>
+		<form name="instrument" ng-submit="checkForm()">
+			<div class="form-group">								
+				<input type="text" class="form-control" name="name" ng-model="name" placeholder="Введите название инструмента" required>								
+			</div>
+			<div class="form-group">								
+				<textarea class="form-control" name="characteristics" ng-model="characteristics" placeholder="Введите основные характеристики" required></textarea>								
+			</div>	
+			<div class="form-group">								
+				<input type="text" class="form-control" name="price-usd" ng-model="priceUsd" placeholder="Введите стоимость в $" required>								
+			</div>	
+			<div class="form-group">								
+				<input type="text" class="form-control" name="life-time" ng-model="lifeTime" placeholder="Введите количество часов работы" required>								
+			</div>	
+			<div class="form-group">								
+				<input type="text" class="form-control" name="keywords" ng-model="keywords" placeholder="Введите ключевые слова для поиска" required>								
+			</div>	
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="hide()">Отмена</button>
+		</form>
+	</div>
+</div>

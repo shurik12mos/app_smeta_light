@@ -1,0 +1,17 @@
+<section>
+	<div class="container">
+		<div class="row">
+			<h1 class="fff">Инструменты</h1>
+			<add-instrument></add-instrument>
+			<br/>
+			<hr/>
+			<div class="form-group">	
+				<label>Поиск</label>
+				<input type="text" class="form-control" ng-model="search" placeholder="Что искать?">								
+			</div>	
+			<div>
+				<instrument ng-repeat = "oneInstrument in instruments.instruments | filter: search"></instrument>		
+			</div>					
+		</div>
+	</div>	
+</section>

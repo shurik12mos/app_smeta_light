@@ -1,0 +1,29 @@
+<div class="addCategory">	
+	<div>
+		<h3>{{oneChar.name}}</h3>
+		<form name="commonChar" ng-submit="editChar(changeChar)">
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="changeChar.name" placeholder="Введите название характеристики" required>								
+			</div>
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="changeChar.measure" placeholder="Введите еденицы измерения характеристики" required>								
+			</div>
+			<div class="form-group">								
+				<textarea class="form-control" ng-model="changeChar.description" placeholder="Введите описание характеристики" required></textarea>								
+			</div>	
+			<hr/>
+			<h4>Значения</h4>
+			<hr/>
+			<button type="button" class="btn" ng-click="addValue()"><span class="changeCategory glyphicon glyphicon glyphicon-plus" ></span></button>
+			<div class="row addValue">
+				<div class="col-sm-6"><p class="bold">Значение</p></div>
+				<div class="col-sm-6"><p class="bold">Коэффициент</p></div>
+			</div>
+			
+			<char-value ng-repeat="value in changeChar.values"></char-value>
+			
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="showChangeChar = false">Отмена</button>
+		</form>
+	</div>
+</div>
