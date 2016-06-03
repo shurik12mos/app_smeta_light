@@ -63,3 +63,29 @@ app.directive('changeMaterial', function(MaterialsModel){
 		}
 	}
 });
+
+app.directive('chooseMaterial', function(MaterialsModel){
+	return {
+		restrict: "E",
+		templateUrl: "materials/directives/chooseMaterial.html",		
+		link: function(scope, element, attrs){
+			scope.chooseMaterial = function(material) {
+				var target = eval("scope."+attrs.target);				
+				var mat = new Object(), isExist = false;
+				if (!target.materials) target.materials=[];
+				target.materials.forEach(function(item){
+					if (item.id==material.id) {
+						alert("Такой инструмент уже есть");
+						isExist = true;
+					}
+				});
+				if (isExist) return;
+				mat.copyObject(material);
+				mat.name = mat.charInString;
+				delete mat.charInString;
+				target.materials.unshift(mat);
+				scope.showchooseMaterial=false;
+			}
+		}
+	}
+});

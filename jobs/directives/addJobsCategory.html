@@ -1,0 +1,16 @@
+<div class="addCategory" ng-show="jobs.common.showAddCategory">	
+	<div>
+		<h3 ng-hide="jobs.common.newCategory.id">Добавить категорию</h3>
+		<h3 ng-show="jobs.common.newCategory.id">Изменить категорию</h3>
+		<form name="category" ng-submit="jobs.addJobsCategory(jobs.common.newCategory.id)">
+			<div class="form-group">								
+				<input type="text" class="form-control" ng-model="jobs.common.newCategory.name" placeholder="Введите название категории" required>								
+			</div>
+			<div class="form-group">								
+				<textarea class="form-control" ng-model="jobs.common.newCategory.description" placeholder="Введите описание категории" required></textarea>								
+			</div>		
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="jobs.common.showAddCategory = false; jobs.common.newCategory = {};">Отмена</button>
+		</form>
+	</div>
+</div>

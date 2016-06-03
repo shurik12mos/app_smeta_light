@@ -1,0 +1,51 @@
+<section class="modal31">
+	<div class="container">
+	<span class="escape glyphicon glyphicon-remove" ng-click="showchooseMaterial = false"></span>
+		<div class="row">
+			<div class="col-sm-3 scrollIn">
+				<h3>Категории материалов</h3>				
+				<hr/>
+				<div>
+					<div ng-repeat="category in model.categories">
+						<div class="materialCategory hoverColor" ng-class="{active: category.active}" ng-init="category_id = category.id;" ng-click="model.listMaterialSection(category_id)">
+							<h3>{{category.name}}</h3>
+							<p>{{category.description}}</p>								
+						</div>
+						<div class="materialSections" ng-init="showMaterialSections = false;" ng-show="category.active">							
+							<div>
+								<div ng-repeat="section in model.sections">
+									<div class="materialCategory hoverColor" ng-class="{active: section.active}" ng-init="section_id = section.id" ng-click="model.listMaterials(section_id, section.name)">
+										<h4>{{section.name}}</h4>
+										<p ng-show="section.active">{{section.description}}</p>											
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>				
+			</div>
+			<div class="col-sm-9 col-push-md-3 fixedAndScroll">
+				<div class="materials" ng-show="model.materialAll">
+					<div class="materialsChars">
+						<h4>Характеристики материала (название, еденицы измерения)</h4>										
+					</div>
+					<hr/>					
+					<div class="materialsList">
+						<div class="materialItem">
+							<p>Название</p>
+							<p>Ед.измерения</p>
+							<p>Цена, грн</p>
+						</div>
+						<div class="materialItem materialCategory hoverColor" 
+						  ng-repeat = "material in model.materialAll  | orderBy:'charInString'"
+						  ng-click="chooseMaterial(material); showchooseMaterial=false">
+							<p>{{material.charInString}}</p>
+							<p>{{material.measure}}</p>
+							<p>{{material.price}}</p>							
+						</div>							
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>	
+</section>

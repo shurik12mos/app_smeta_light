@@ -1,0 +1,50 @@
+<div class="col-md-9 jobCenter" ng-show="jobs.common.active_section_id">
+	<div class="jobOptions">
+		<span class="jobOption glyphicon glyphicon-plus" ng-click="jobs.addJob(jobs.common.active_section_id, jobs.job.chars)"></span>
+		<span class="jobOption glyphicon glyphicon-pencil" ng-click="jobs.changeJob(jobs.common.active_section_id, jobs.job)" ng-show="jobs.job.id"></span>
+		<span class="jobOption glyphicon glyphicon-remove" ng-click="jobs.deleteJob(jobs.job.id)" ng-show="jobs.job.id"></span>
+	</div>
+	<h3>{{jobs.job.name}}</h3>
+	<p ng-show="jobs.job['human-hour']">
+		{{jobs.job["human-hour"]*90*jobs.job["job-rank"]}} грн/{{jobs.job.measure}} 		
+	</p>
+	<div class="descriptionJob" ng-show="jobs.job.name">
+		<ul ng-init="descriptionJob = 1">			
+			<li ng-class="{active: descriptionJob == 1}" ng-click="descriptionJob = 1">Описание</li>
+			<li ng-class="{active: descriptionJob == 2}" ng-click="descriptionJob = 2">Как выполняют</li>
+			<li ng-class="{active: descriptionJob == 3}" ng-click="descriptionJob = 3">Материалы и оборудование</li>
+		</ul>
+		<div ng-show="jobs.job.name">
+			<div class="descJob" ng-show="descriptionJob == 1">
+				<p>{{jobs.job.description}}</p>
+				<p><strong>Разряд работ:</strong> {{jobs.job["job-rank"]}}</p>
+				<p><strong>Норма выполнения:</strong> {{jobs.job["human-hour"]}}</p>				
+			</div>
+			<div class="descJob" ng-show="descriptionJob == 2">
+				<h4>Как выполняют:</h4>
+				<p>{{jobs.job["how-do-master"]}}</p>
+				<h4>Как принимают:</h4>
+				<p>{{jobs.job["how-estimated"]}}</p>
+			</div>
+			<div class="descJob" ng-show="descriptionJob == 3">
+				<h4>Материалы:</h4>
+				<p ng-repeat="material in jobs.job.materials">{{material.name}} - {{material.price}} грн</p>
+				<h4>Инструменты:</h4>
+				<p ng-repeat="instrument in jobs.job.instruments">{{instrument.name}}</p>
+			</div>			
+		</div>
+	</div>
+</div>
+<div class="col-md-3 jobChar" ng-show="jobs.jobsList.chars.length">
+	<h4>Выбираемые параметры</h4>
+	<div ng-repeat="char in jobs.jobsList.chars">
+		<h5>{{char.name}}, {{char.measure}}</h5>
+		<div ng-repeat="charValue in char.values">			
+			<label>
+				<input type="radio" name="{{char.name}}" ng-click="changeJobChar(char, $index)" ng-checked="charValue.active"/>
+				{{charValue.value}}
+			</label>
+		</div>	
+		<hr/>
+	</div>
+</div>

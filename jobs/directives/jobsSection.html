@@ -1,0 +1,9 @@
+<div ng-repeat = "section in jobs.sections | orderBy: 'name'">
+	<div class="materialCategory hoverColor" ng-class="{active: section.active}" ng-click="jobs.getJobs(section.id)" ng-mouseover="showKeywords=true" ng-mouseleave = "showKeywords=false">
+		<h3>{{section.name}}</h3>
+		<p>{{section.description}}</p>			
+		<!-- change and delete category -->
+		<span class="changeCategory glyphicon glyphicon-pencil" ng-click="jobs.changeSection(section.id, section.name, section.description, section.keywords)"></span>
+		<span class="deleteCategory glyphicon glyphicon-remove" ng-click="jobs.deleteSection(section.id)"></span>
+	</div>	
+</div>

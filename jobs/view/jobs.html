@@ -1,0 +1,19 @@
+<section class="container">
+	<div class="row">
+		<!-- Категории и разделы работ -->
+		<div class="col-md-3 scrollIn">			
+			<button type="button" class="btn btn-primary"  ng-click="jobs.common.showAddCategory=true" ng-hide="jobs.common.showAddCategory">
+				Добавить категорию
+			</button>
+			<add-jobs-category></add-jobs-category>
+			<add-jobs-section></add-jobs-section>
+			<add-job></add-job>
+			<hr/>
+			<jobs-category></jobs-category>
+		</div>
+		<!--Описание работы, как делают профессионалы, цена и прочее -->
+		<div class="col-md-9">
+			<job></job>
+		</div>		
+	</div>
+</section>

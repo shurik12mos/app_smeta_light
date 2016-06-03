@@ -6,7 +6,8 @@ var app = angular.module('myApp', [
   'ngResource',
   'myApp.material',
   'myApp.instruments',
-  'myApp.commonChar'
+  'myApp.commonChar',
+  'myApp.jobs'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -21,7 +22,13 @@ var app = angular.module('myApp', [
   .when('/materials/', {
     templateUrl: 'materials/view/materials.html',
     controller: 'MaterialCtrl'
-  }) 
+  })
+  .when('/jobs/', {
+    templateUrl: 'jobs/view/jobs.html',
+    controller: 'JobsCtrl'
+  })
   .otherwise({redirectTo: '/materials/'});
 }])
-app.controller('AppCtrl', [function(){}]);
+app.controller('AppCtrl', [function(){
+	
+}]);

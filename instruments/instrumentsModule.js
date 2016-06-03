@@ -96,3 +96,27 @@ app.directive('changeInstrument', function(InstrumentsModel){
 		}
 	}
 });
+
+app.directive('chooseInstrument', function(InstrumentsModel){
+	return {
+		restrict: "E",
+		templateUrl: "instruments/directives/chooseInstrument.html",		
+		link: function(scope, element, attrs){			
+			scope.chooseInstrument = function(instrument) {
+				var target = eval("scope."+attrs.target);				
+				var inst = new Object(), isExist = false;
+				if (!target.instruments) target.instruments=[];
+				target.instruments.forEach(function(item){
+					if (item.id==instrument.id) {
+						alert("Такой инструмент уже есть");
+						isExist = true;
+					}
+				});
+				if (isExist) return;
+				inst.copyObject(instrument);
+				target.instruments.unshift(inst);
+				scope.showchooseInstrument=false;
+			}
+		}
+	}
+});

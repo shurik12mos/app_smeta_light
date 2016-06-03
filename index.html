@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="app.css"> 
+   <link rel="stylesheet" href="common/animate.css"> 
 </head>
 <body>
+	<a ng-href="#/jobs/" title="Работы">Работы</a>
 	<a ng-href="#/materials/" title="Материалы">Материалы</a>
 	<a ng-href="#/instruments/" title="Инструменты">Инструменты</a>
 	<a ng-href="#/commonChar/" title="Общие характеристики">Общие характеристики</a>
@@ -27,22 +29,28 @@
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
+  
+  
+  
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>  
   <script src="app.js"></script> 
+  <script src="common/commonJS.js"></script> 
   <!-- Materials -->
   <script src="materials/materialModule.js"></script> 
   <script src="materials/materialsModelModule.js"></script> 
   <script src="materials/directives/materialDirectives.js"></script> 
    <!-- Instruments -->
   <script src="instruments/instrumentsModule.js"></script> 
-   <script src="instruments/instrumentsModelModule.js"></script> 
+  <script src="instruments/instrumentsModelModule.js"></script> 
     <!-- commonChar -->
   <script src="commonChar/commonCharModule.js"></script> 
-   <script src="commonChar/commonCharModelModule.js"></script> 
+  <script src="commonChar/commonCharModelModule.js"></script> 
+    <!-- commonChar -->
+  <script src="jobs/jobsModule.js"></script> 
+  <script src="jobs/jobsModelModule.js"></script> 
+  <script src="jobs/directives/jobsDirectives.js"></script> 
  
 </body>
 </html>

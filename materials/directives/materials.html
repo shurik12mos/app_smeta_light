@@ -55,7 +55,7 @@
 			<p>Ед.измерения</p>
 			<p>Цена, грн</p>
 		</div>
-		<div class="materialItem materialCategory hoverColor" ng-repeat = "material in model.materialAll | materialFilter:model.producers:model.chars | orderBy:'charInString' ">
+		<div class="materialItem materialCategory hoverColor" ng-repeat = "material in model.materialAll | materialFilter:model.producers:model.chars | orderBy:'charInString' " >
 			<p>{{material.charInString}}</p>
 			<p>{{material.measure}}</p>
 			<p>{{material.price}}</p>

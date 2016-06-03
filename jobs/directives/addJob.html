@@ -1,0 +1,121 @@
+<div class="addJob" ng-show="jobs.common.showAddJob">	
+	<div>
+		<span class="escape glyphicon glyphicon-remove" ng-click="jobs.common.showAddJob = false; jobs.common.newJob = {};"></span>
+		<h3>Добавить работу</h3>		
+		<form name="job" ng-submit="jobs.addJob2(jobs.common.newJob)">
+			<div class="row">
+				<div class="jobData col-sm-6">
+					<div class="form-group">
+						<label>
+							<span>Норма времени (чел*ч):</span>
+							<input type="text" class="form-control" ng-model="jobs.common.newJob['human-hour']" placeholder="Введите норму времени (чел-ч)" required>		
+						</label>										
+					</div>		
+					<div class="form-group">
+						<label>
+							<span>Еденица измерения:</span>
+							<input type="text" class="form-control" ng-model="jobs.common.newJob.measure" placeholder="Введите еденицы измерения" required>		
+						</label>										
+					</div>	
+					<div class="form-group">
+						<label>
+							<span>Разряд работ:</span>
+							<input type="text" class="form-control" ng-model="jobs.common.newJob['job-rank']" placeholder="Введите разряд работ" required>		
+						</label>										
+					</div>	
+					<div class="form-group">
+						<label>
+							<span>Описание работы:</span>
+							<textarea class="form-control" ng-model="jobs.common.newJob.description" placeholder=""></textarea>								
+						</label>
+					</div>	
+					<div class="form-group">
+						<label>
+							<span>Ключевые слова:</span>
+							<textarea class="form-control" ng-model="jobs.common.newJob.keywords" placeholder=""></textarea>								
+						</label>
+					</div>
+					<div class="form-group">
+						<label>
+							<span>Как делают мастера:</span>
+							<textarea class="form-control" ng-model="jobs.common.newJob['how-do-master']" placeholder="" required></textarea>								
+						</label>
+					</div>
+					<div class="form-group">
+						<label>
+							<span>Как принимается работа:</span>
+							<textarea class="form-control" ng-model="jobs.common.newJob['how-estimated']" placeholder="" required></textarea>								
+						</label>
+					</div>
+				</div>
+				<div class="charData col-sm-6">				
+					<h4>
+						Характеристики:
+						<button type="button" class="btn btn-default"><span class="jobOption glyphicon glyphicon-plus" ng-click="jobs.common.newJob.chars.unshift({})"></span></button>
+					</h4>
+					
+					<div ng-repeat="char in jobs.common.newJob.chars">
+						<div class="form-group">
+							<label>
+								<span>Название:</span>
+								<input type="text" class="form-control" ng-model="char.name" placeholder="Введите название" ng-disabled="char['chars_name_id']" required>		
+							</label>										
+						</div>	
+						<div class="form-group">
+							<label>
+								<span>Еденицы измерения:</span>
+								<input type="text" class="form-control" ng-model="char.measure" placeholder="Введите еденицы измерения" ng-disabled="char['chars_name_id']" required>		
+							</label>										
+						</div>	
+						<div class="form-group">
+							<label>
+								<span>Значение:</span>
+								<input type="text" class="form-control" ng-model="char.value" placeholder="Введите значение" required ng-change="char.change = true">		
+							</label>										
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="jobMaterial col-sm-6">
+					<div>
+						<p>Название</p>
+						<p>Ед.изм.</p>
+						<p>Количество</p>
+						<p>Стоимость еденицы, грн</p>
+						<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseMaterial=true"></span>
+					</div>
+					<div ng-repeat="material in jobs.common.newJob.materials" >
+						<p>{{material.name}}</p>
+						<p>{{material.measure}}</p>
+						<input type="text" class="form-control" ng-model="material.number" placeholder="Введите значение" required/>
+						<p>{{material.price}}</p>
+						<span class="deleteCategory glyphicon glyphicon-remove" ng-click="remove(jobs.common.newJob.materials, $index)"></span>						
+					</div>									
+				</div>
+				<div class="jobInstrument jobMaterial col-sm-6">
+					<div>
+						<p>Название</p>
+						<p>Характеристики</p>
+						<p>Срок службы, ч</p>
+						<p>Стоимость, $</p>
+						<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseInstrument=true"></span>
+					</div>
+					<div ng-repeat="instrument in jobs.common.newJob.instruments">
+						<p>{{instrument.name}}</p>
+						<p>{{instrument.characteristics}}</p>
+						<p>{{instrument['life-time']}}</p>
+						<p>{{instrument['price-usd']}}</p>						
+						<span class="deleteCategory glyphicon glyphicon-remove" ng-init="i=$index" ng-click="remove(jobs.common.newJob.instruments, $index)"></span>
+					</div>						
+				</div>
+			</div>	
+			
+			
+			<button type="submit"  class="btn btn-primary">Отправить</button>
+			<button type="button" class="btn btn-danger" ng-click="jobs.common.showAddJob = false; jobs.common.newJob = {};">Отмена</button>
+		</form>
+	</div>
+	<choose-instrument ng-show="showchooseInstrument" data-target="jobs.common.newJob"></choose-instrument>
+	<choose-material ng-show="showchooseMaterial" data-target="jobs.common.newJob"></choose-material>
+</div>
