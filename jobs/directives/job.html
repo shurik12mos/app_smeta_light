@@ -37,9 +37,9 @@
 </div>
 <div class="col-md-3 jobChar" ng-show="jobs.jobsList.chars.length">
 	<h4>Выбираемые параметры</h4>
-	<div ng-repeat="char in jobs.jobsList.chars">
+	<div ng-repeat="char in jobs.jobsList.chars | orderBy: 'name'">
 		<h5>{{char.name}}, {{char.measure}}</h5>
-		<div ng-repeat="charValue in char.values">			
+		<div ng-repeat="charValue in char.values | orderBy: 'value'">			
 			<label>
 				<input type="radio" name="{{char.name}}" ng-click="changeJobChar(char, $index)" ng-checked="charValue.active"/>
 				{{charValue.value}}

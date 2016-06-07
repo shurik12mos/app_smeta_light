@@ -246,9 +246,7 @@
 		$query = "UPDATE `tbl_jobs` SET `job_section_id` = '$section_id', `human-hour` = '$human_hour', `description` = '$description', ";
 		$query .= "`keywords` = '$keywords', `how-estimated` = '$how_estimated', `how-do-master` = '$how_do_master', `measure` = '$measure', ";
 		$query .= "`job-rank` =  '$job_rank' WHERE `id` = '$id_job'";
-		$result = do_query($query);	
-		
-		
+		$result = do_query($query);			
 		
 		// Проходим в цикле по характеристикам, вставляем значения характеристик в таблицу 	tbl_jobs_has_tbl_chars и получаем их id
 		for ($i=0;$i<count($char);$i++) {			
@@ -279,7 +277,13 @@
 					
 				$query_char = "INSERT INTO `tbl_jobs_has_tbl_chars` (`jobs_id`, `chars_id`) VALUES ('$id_job', '$chars_id')";
 				$result = do_query($query_char);
-			}			
+			} else {
+				$value_char = $a["value"];
+				$chars_name_id = $a["chars_name_id"];
+				$id_char = $a["id"];
+				$query_char = "UPDATE `tbl_chars` SET `value` = '$value_char', `chars_name_id` = '$chars_name_id' WHERE `id` = '$id_char'";
+				$result = do_query($query_char);				
+			}				
 		}
 		// Удалить все инструменты связанные с работой
 		$query_a = "DELETE FROM `tbl_jobs_has_tbl_instrument` WHERE `jobs_id` = '$id_job'";

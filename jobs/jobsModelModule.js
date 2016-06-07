@@ -84,8 +84,7 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs){
 			obj.forEach(function(item, i, items) {
 				if(item.id==id) exist = true;
 			});
-		} else if (name && obj) {
-			console.log("isExistSame", name, obj)
+		} else if (name && obj) {			
 			obj.forEach(function(item,i,items) {
 				
 				if(item.name==name) exist = true;
@@ -297,8 +296,7 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs){
 		}
 	};	
 	
-	jobs.addJobsSection = function(id){
-		console.log("id", id);
+	jobs.addJobsSection = function(id){		
 		if(id) {
 			changeSection2();
 			return;
@@ -435,15 +433,13 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs){
 			return;
 		}
 		
-		function addJob() {			
+		function addJob() {	
+			jobs.common.changeJob = false;		
 			addingJob.$save(function(response) {
 				console.log(response);
 				if(processResult(response) && response.id) {
-					job.id = response.id;
-					jobs.jobsList.push(job);
-					jobs.common.newJob = new Object();	
-					jobs.jobsList.chars = makePossibleChars();
-					jobs.chooseOneJob();
+					jobs.getJobs(jobs.common.active_section_id);
+					jobs.common.newJob = new Object();						
 				}
 				jobs.common.showAddJob =false;
 			}, function(error){
@@ -451,18 +447,12 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs){
 			})
 		}
 		
-		function changeJob() {			
+		function changeJob() {	
+			jobs.common.changeJob = false;		
 			addingJob.$update(function(response){				
 				if(processResult(response)) {					
-					jobs.jobsList.forEach(function(item, i, items){
-						if (item.id==job.id) {
-							item = new Object();							
-							items[i].copyObject(job);
-						}
-					});					
-					jobs.common.newJob = new Object();	
-					jobs.jobsList.chars = makePossibleChars();
-					jobs.chooseOneJob();
+					jobs.getJobs(jobs.common.active_section_id);			
+					jobs.common.newJob = new Object();						
 				}
 				jobs.common.showAddJob =false;
 			}, function(error) {
@@ -473,9 +463,9 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs){
 		//Если значение характеристики изменено, то удаляем id характеристики, чтобы сохранилось новое значение
 		if (job.chars.forEach) {			
 			job.chars.forEach(function(item){
-				if(item.id && item.change) {
+				if(item.id && item.change && !jobs.common.changeJob) {
 					delete item.id;
-					if (job.id) {
+					if (job.id ) {
 						delete job.id;
 					}
 					changed = true;
@@ -495,6 +485,7 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs){
 	
 	jobs.changeJob = function(section_id, job) {
 		jobs.common.newJob = new Object();
+		jobs.common.changeJob = true;
 		if(!section_id) return;		
 		// Если есть активная работа, то копируем ее
 		if (job.id) {

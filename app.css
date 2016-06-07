@@ -487,3 +487,71 @@ td, tr, th {
 	display: inline-block;
 	margin: 0px;
 }
+
+/* 
+	Numeric Indicators
+*/
+
+.ni {	
+	padding: 10px 15px;
+	font-size: 0px;
+}
+
+.short_ni {
+	font-size: 14px;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.ni .form-group label {
+	margin: 0px;
+	width: 30%;
+	display: inline-block;
+	font-size: 14px;
+	
+}
+
+.ni .form-group input {
+	margin: 0px;
+	width: 70%;
+	display: inline-block;
+	font-size: 14px;
+}
+
+.long_ni {
+	border: 2px solid #ccc;
+	padding: 40px 10px 20px 10px;
+	position: relative;
+}
+
+.long_ni .glyphicon_wrapper {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	
+	
+}
+
+.long_ni .glyphicon_wrapper button {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	padding: 10px;
+	background-color: transparent;
+}
+
+.long_ni .glyphicon_wrapper button:focus {
+	outline: none;
+	border-width: 0px;
+	outline: none;
+}
+
+.long_ni .glyphicon {	
+	font-size: 20px;	
+	color: #ccc;
+	cursor: pointer;
+}
+
+.long_ni .glyphicon:hover {
+	color: #333;
+}

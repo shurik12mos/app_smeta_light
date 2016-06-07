@@ -1,0 +1,35 @@
+<div class="addCategory" ng-init = "show_add_ni = false"  ng-show="show_add_ni">	
+	<div>
+		<h3>Добавить характеристику</h3>
+		<form name="commonChar" ng-submit="show_add_ni = numericIndicators.add(form)">
+			<div>
+				<div class="glyphicon_wrapper">
+					<button type="submit" class="btn"><span class="glyphicon glyphicon glyphicon-ok"></span></button>
+					<button type="button" class="btn" ng-click="show_add_ni = false; form = {}"><span class="glyphicon glyphicon-arrow-left"></span></button>
+				</div>							
+				<div class="form-group">	
+					<label>Название</label>
+					<input type="text" class="form-control" ng-model="form.name" placeholder="Название" required>								
+				</div>
+				<div class="form-group">	
+					<label>Еденица измерения</label>
+					<input type="text" class="form-control" ng-model="form.measure" placeholder="Еденица измерения" required>								
+				</div>
+				<div class="form-group">	
+					<label>Значение</label>
+					<input type="text" class="form-control" ng-model="form.value" placeholder="Значение" required>								
+				</div>
+				<div class="form-group">	
+					<label>Алиас (только латинские буквы)</label>
+					<input type="text" class="form-control" ng-model="form.alias" placeholder="Алиас" required>								
+				</div>
+				<div class="form-group">	
+					<label>Описание</label>
+					<input type="text" class="form-control" ng-model="form.description" placeholder="Описание">								
+				</div>
+			</div>			
+		</form>
+	</div>
+</div>
+
+<button type="button" class="btn btn-primary" ng-click="show_add_ni = true">Добавить показатель</button>

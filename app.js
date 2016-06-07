@@ -7,7 +7,8 @@ var app = angular.module('myApp', [
   'myApp.material',
   'myApp.instruments',
   'myApp.commonChar',
-  'myApp.jobs'
+  'myApp.jobs',
+  'myApp.numericIndicators'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -26,6 +27,10 @@ var app = angular.module('myApp', [
   .when('/jobs/', {
     templateUrl: 'jobs/view/jobs.html',
     controller: 'JobsCtrl'
+  })
+  .when('/numericIndicators/', {
+    templateUrl: 'numericIndicators/view/numericIndicators.html',
+    controller: 'NumericIndicatorsCtrl'
   })
   .otherwise({redirectTo: '/materials/'});
 }])

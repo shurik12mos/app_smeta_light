@@ -1,0 +1,50 @@
+<section>
+	<div class="container">
+		<div class="row">
+			<h1 class="fff">Числовые показатели смет</h1>
+			<add-NI></add-NI>
+			<br/>
+			<hr/>
+			<div class="form-group">	
+				<label>Поиск</label>
+				<input type="text" class="form-control" ng-model="search" placeholder="Что искать?">								
+			</div>	
+			<div class="list_ni">
+				<h3>Числовые показатели смет</h3>
+				<p>Данные, которые принимаются по умолчанию. В каждой смете их можно переопределить.</p>				
+				<add-Ni></add-Ni>				
+				
+				<div class="ni">
+					<div class="ni_item" ng-repeat = "ni in numericIndicators.list | orderBy: 'id' | filter: search" ng-click="show_short_ni = !show_short_ni; numericIndicators.prepareChange(ni)">
+						<div class="short_ni hoverColor" ng-init = "show_short_ni = true" ng-show = "show_short_ni">
+							{{$index+1}}. {{ni.name}} - {{ni.value}}, {{ni.measure}}
+						</div>
+						<div class="long_ni" ng-show = "!show_short_ni" ng-click="show_short_ni = !show_short_ni">
+							<div class="glyphicon_wrapper">
+								<button type="button" class="btn" ng-click="show_short_ni = numericIndicators.save(ni)"><span class="glyphicon glyphicon glyphicon-ok"></span></button>
+								<button type="button" class="btn" ng-click="show_short_ni = !show_short_ni; numericIndicators.undoChange($index)"><span class="glyphicon glyphicon-arrow-left"></span></button>
+							</div>							
+							<div class="form-group">	
+								<label>Название</label>
+								<input type="text" class="form-control" ng-model="ni.name" placeholder="Название" disabled required>								
+							</div>
+							<div class="form-group">	
+								<label>Еденица измерения</label>
+								<input type="text" class="form-control" ng-model="ni.measure" placeholder="Еденица измерения" disabled required>								
+							</div>
+							<div class="form-group">	
+								<label>Значение</label>
+								<input type="text" class="form-control" ng-model="ni.value" placeholder="Значение" required>								
+							</div>
+							<div class="form-group">	
+								<label>Описание</label>
+								<input type="text" class="form-control" ng-model="ni.description" placeholder="Описание">								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+								
+		</div>
+	</div>	
+</section>
