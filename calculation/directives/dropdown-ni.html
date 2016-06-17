@@ -1,0 +1,13 @@
+<div class="dropdown-window">
+	<div class="ni-wrapper" ng-class="{slideIn: showNI, slideOut: hideNI}">
+		<div class="ni-element" ng-repeat="nis in calculation.numIndicators">
+			<span>{{nis.name}}</span>
+			<input type="text" class="form-control" min="0" ng-model="nis.value" ng-change="changeNI()"/>
+			<span>{{nis.measure}}</span>
+		</div>
+	</div>
+	<div class="ni-pointer" ng-init="showNI = false">
+		<a ng-click = "showNI = true; hideNI = false; console.log(calculation)" ng-show="showNI == false" href="" title="Развернуть числовые показатели"><span class="glyphicon glyphicon-chevron-down"></span></a>
+		<a ng-click = "showNI = false; hideNI = true" ng-show="showNI == true" href="" title="Свернуть числовые показатели"><span class="glyphicon glyphicon-chevron-up"></span></a>
+	</div>
+</div>

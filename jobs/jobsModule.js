@@ -1,24 +1,25 @@
 'use strict';
 
-var app = angular.module('myApp.jobs', ['jobsDirectives', 'ngResource', 'ngRoute', 'jobsModelModule']);
+var app = angular.module('myApp.jobs', ['jobsDirectives', 'ngResource', 'ngRoute', 'jobsModelModule', 'numericIndicatorsModelModule']);
 app.controller('JobsCtrl', [
 	'$http',
 	'$scope',	
 	'JobsModel',
 	'InstrumentsModel',
 	'MaterialsModel',
+	'NumericIndicatorsModel',
 	function(
 	$http,
 	$scope,	
 	JobsModel,
 	InstrumentsModel,
-	MaterialsModel) {	
+	MaterialsModel,
+	NumericIndicatorsModel) {	
 	var scope = $scope;		
 	scope.jobs = JobsModel;
 	scope.instruments = InstrumentsModel;
 	scope.model = MaterialsModel;
-	
-	//console.log(scope.jobs.processResult);
+	scope.ni = NumericIndicatorsModel;	
 }]);
 
 app.factory('JobsCategory', function($resource){

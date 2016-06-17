@@ -8,7 +8,9 @@ var app = angular.module('myApp', [
   'myApp.instruments',
   'myApp.commonChar',
   'myApp.jobs',
-  'myApp.numericIndicators'
+  'myApp.numericIndicators',
+  'myApp.listCalculations',
+  'myApp.calculation'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -31,6 +33,14 @@ var app = angular.module('myApp', [
   .when('/numericIndicators/', {
     templateUrl: 'numericIndicators/view/numericIndicators.html',
     controller: 'NumericIndicatorsCtrl'
+  })
+ .when('/listCalculations/', {
+    templateUrl: 'listCalculations/view/listCalculations.html',
+    controller: 'ListCalculationsCtrl'
+  }) 
+  .when('/calculation/:calcId', {
+    templateUrl: 'calculation/view/calculation.html',
+    controller: 'CalculationCtrl'
   })
   .otherwise({redirectTo: '/materials/'});
 }])

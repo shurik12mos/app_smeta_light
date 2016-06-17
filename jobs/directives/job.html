@@ -6,7 +6,7 @@
 	</div>
 	<h3>{{jobs.job.name}}</h3>
 	<p ng-show="jobs.job['human-hour']">
-		{{jobs.job["human-hour"]*90*jobs.job["job-rank"]}} грн/{{jobs.job.measure}} 		
+		{{jobs.job.price}} грн/{{jobs.job.measure}} 		
 	</p>
 	<div class="descriptionJob" ng-show="jobs.job.name">
 		<ul ng-init="descriptionJob = 1">			
@@ -28,7 +28,7 @@
 			</div>
 			<div class="descJob" ng-show="descriptionJob == 3">
 				<h4>Материалы:</h4>
-				<p ng-repeat="material in jobs.job.materials">{{material.name}} - {{material.price}} грн</p>
+				<p ng-repeat="material in jobs.job.materials">{{material.name}} - {{material.number}} {{material.measure}} - {{material.price}} грн</p>
 				<h4>Инструменты:</h4>
 				<p ng-repeat="instrument in jobs.job.instruments">{{instrument.name}}</p>
 			</div>			

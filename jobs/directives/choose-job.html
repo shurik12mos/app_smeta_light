@@ -1,0 +1,60 @@
+<section class="modal31">
+	<div class="container">
+	<span class="escape glyphicon glyphicon-remove" ng-click="showchooseJob = false"></span>
+		<div class="row">
+			<div class="col-sm-3 scrollIn">				
+			<jobs-category></jobs-category>
+		</div>
+		<!--Описание работы, как делают профессионалы, цена и прочее -->
+		<div class="col-md-9">
+			<div class="col-md-9 jobCenter" ng-show="jobs.common.active_section_id">
+				<div class="jobOptions">					
+					<span class="jobOption glyphicon glyphicon-ok" ng-click="chooseJob(jobs.job)"></span>					
+				</div>
+				<h3>{{jobs.job.name}}</h3>
+				<p ng-show="jobs.job['human-hour']">
+					{{jobs.job["human-hour"]*ni.cost_hour*jobs.job["job-rank"]}} грн/{{jobs.job.measure}} 		
+				</p>
+				<div class="descriptionJob" ng-show="jobs.job.name">
+					<ul ng-init="descriptionJob = 1">			
+						<li ng-class="{active: descriptionJob == 1}" ng-click="descriptionJob = 1">Описание</li>
+						<li ng-class="{active: descriptionJob == 2}" ng-click="descriptionJob = 2">Как выполняют</li>
+						<li ng-class="{active: descriptionJob == 3}" ng-click="descriptionJob = 3">Материалы и оборудование</li>
+					</ul>
+					<div ng-show="jobs.job.name">
+						<div class="descJob" ng-show="descriptionJob == 1">
+							<p>{{jobs.job.description}}</p>
+							<p><strong>Разряд работ:</strong> {{jobs.job["job-rank"]}}</p>
+							<p><strong>Норма выполнения:</strong> {{jobs.job["human-hour"]}}</p>				
+						</div>
+						<div class="descJob" ng-show="descriptionJob == 2">
+							<h4>Как выполняют:</h4>
+							<p>{{jobs.job["how-do-master"]}}</p>
+							<h4>Как принимают:</h4>
+							<p>{{jobs.job["how-estimated"]}}</p>
+						</div>
+						<div class="descJob" ng-show="descriptionJob == 3">
+							<h4>Материалы:</h4>
+							<p ng-repeat="material in jobs.job.materials">{{material.name}} - {{material.number}} {{material.measure}} - {{material.price}} грн</p>
+							<h4>Инструменты:</h4>
+							<p ng-repeat="instrument in jobs.job.instruments">{{instrument.name}}</p>
+						</div>			
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 jobChar" ng-show="jobs.jobsList.chars.length">
+				<h4>Выбираемые параметры</h4>
+				<div ng-repeat="char in jobs.jobsList.chars | orderBy: 'name'">
+					<h5>{{char.name}}, {{char.measure}}</h5>
+					<div ng-repeat="charValue in char.values | orderBy: 'value'">			
+						<label>
+							<input type="radio" name="{{char.name}}" ng-click="changeJobChar(char, $index)" ng-checked="charValue.active"/>
+							{{charValue.value}}
+						</label>
+					</div>	
+					<hr/>
+				</div>
+			</div>
+		</div>		
+	</div>
+</section>

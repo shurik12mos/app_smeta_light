@@ -263,7 +263,8 @@ td, tr, th {
 	margin: 0px;
 }
 
-@keyframes show {    
+@keyframes show {  
+	0% {display: block;}
     100% { opacity: 1;  height: 100% }
    }
    @-webkit-keyframes show {   
@@ -497,9 +498,14 @@ td, tr, th {
 	font-size: 0px;
 }
 
+.ni span {
+	font-size: 14px ;
+}
+
 .short_ni {
 	font-size: 14px;
 	padding: 10px;
+	display: block;
 	border-radius: 5px;
 }
 
@@ -555,3 +561,131 @@ td, tr, th {
 .long_ni .glyphicon:hover {
 	color: #333;
 }
+
+.input_wrapper {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0px 5px;
+	margin: 2px 0px;
+	border-right: 1px solid #ccc;
+}
+
+.input_wrapper>label, 
+.input_wrapper>input {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 5px;
+	margin: 0px;
+}
+
+.half-size label {
+	width: 200px;
+	display: inline-block;	
+	padding: 0px 15px 0px 0px;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.half-size input {
+	max-width: 49%;
+	display: inline-block;	
+	padding: 0px 0px 0px 15px;
+	vertical-align: middle;
+}
+
+.half-size input::after {
+	content: "";
+	display: inline-block;
+	width: 100%;
+	height: 0px;
+}
+
+form::nth-child(2n).half-size {
+	padding-right: 0px;
+}
+
+.ng-invalid {
+	border-color: red;
+}
+
+.ng-valid.ng-dirty {
+	border-color: green;
+}
+
+.changedByUser * {
+	color: red !important;
+}
+
+
+.dropdown-window {
+	position: fixed;
+	top: 0;
+	right: 20px;
+}
+
+.ni-wrapper {
+	width: 500px;
+	height: 0px;	
+	background-color: #ccc;
+	position: relative;
+	bottom: 0px;	
+	z-index: 21;
+	float: left;
+	overflow: hidden;
+}
+
+.ni-wrapper.slideIn {
+	height: 100%;
+}
+
+.ni-wrapper.slideOut {	
+	height: 0px;
+}
+
+.ni-element {
+	display: block;
+	position: relative;		
+	border-radius: 10px;
+	font-size: 0px;
+	margin: 10px 15px;
+}
+
+.ni-element > * {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;	
+}
+
+.ni-element>*:nth-child(1) {
+	width: 40%;
+	font-size: 14px;
+}
+
+.ni-element>*:nth-child(2) {
+	width: 40%;
+	font-size: 14px;
+}
+
+.ni-element>*:nth-child(3) {
+	width: 20%;
+	font-size: 14px;
+}
+
+.ni-pointer {
+	font-size: 20px;
+	color: gray;
+	position: relative;
+	top: 0px;
+	right: 0px;
+	float: right;
+	width: 20px;
+	height: 20px;
+	background-color: #350D08;
+}
+
+.ni-pointer .glyphicon {
+	color: #eee;	
+}
+
+
+

@@ -1,0 +1,38 @@
+<section>
+	<div class="container">
+		<div class="row">
+			<h1 class="fff">Сметы</h1>			
+			<br/>
+			<hr/>
+			<div class="form-group">	
+				<label>Поиск</label>
+				<input type="text" class="form-control" ng-model="search" placeholder="Что искать?">
+				<div class="input_wrapper">
+					<label>Имя</label>
+					<input type="checkbox" ng-model="name" ng-true-value="true" ng-false-value="false">
+				</div>	
+				<div class="input_wrapper">
+					<label>Номер КП</label>
+					<input type="checkbox" ng-model="number" ng-true-value="true" ng-false-value="false">
+				</div>	
+				<div class="input_wrapper">
+					<label>Название объекта</label>
+					<input type="checkbox" ng-model="name_object" ng-true-value="true" ng-false-value="false">
+				</div>	
+			</div>	
+			<div class="list_ni">
+				<h3>Список смет</h3>
+				<a ng-href="#/calculation/new" alt="Создать новую смету" class="btn btn-primary">Создать новую смету</a>				
+				<div class="ni">
+					<div class="ni_item materialCategory" ng-repeat = "calc in listCalculations.list | orderBy: 'kp' | filter: search.name || search">
+						<a ng-href="#/calculation/{{calc.kp}}" alt="{{calc.name}}" class="short_ni hoverColor">
+							{{$index+1}}. {{calc.kp}} - {{calc.object}}, {{calc.sum}}
+						</a>						
+						<span class="deleteCategory glyphicon glyphicon-remove" ng-click="listCalculations.deleteCalc(calc.kp)"></span>						
+					</div>
+				</div>
+			</div>
+								
+		</div>
+	</div>	
+</section>

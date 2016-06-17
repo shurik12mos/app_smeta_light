@@ -82,6 +82,8 @@ app.directive('chooseMaterial', function(MaterialsModel){
 				if (isExist) return;
 				mat.copyObject(material);
 				mat.name = mat.charInString;
+				mat.price = Number(mat.price);	
+				mat.number = 0;
 				delete mat.charInString;
 				target.materials.unshift(mat);
 				scope.showchooseMaterial=false;

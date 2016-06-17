@@ -59,18 +59,4 @@ Object.prototype.copyObject = function (objectTo, objectFrom) {
 	return objectTo;
 }
 
-Object.prototype.query = function (factory) {
-	try {		
-		var query = factory.query(function(response){		
-			if(processResult(response)) {
-				query = response;								
-			}				
-		}, function(error){
-			alert("Запрос не удался. Ошибка: " + error);
-		});			 
-	}catch (e){
-		alert("Произошла ошибка. Попробуйте позже или сообщите администратору. Ошибка:" + e);
-	}finally {
-		return query;
-	}	
-}	
+

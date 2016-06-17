@@ -1,0 +1,137 @@
+<section class="container">
+	<div class="row">
+		<form name="calc" ng-submit="calculation.saveCalc()">
+			<button type="submit">Сохранить</button>
+			<div class="form-group half-size">	
+				<label>Номер КП*</label>
+				<input type="text" class="form-control" ng-model="calculation.kp" placeholder="Номер КП" required>								
+			</div>
+			<div class="form-group half-size">	
+				<label>Дата составления</label>
+				<input type="text" class="form-control" ng-init="" ng-model="calculation.date" placeholder="Дата составления" required disabled>								
+			</div>
+			<div class="form-group half-size">	
+				<label>Сумма, грн</label>
+				<input type="text" class="form-control" ng-model="calculation.sum" placeholder="Сумма, грн" disabled>								
+			</div>
+			<div class="form-group half-size">	
+				<label>Материалы, грн</label>
+				<input type="text" class="form-control" ng-model="calculation.sum_materials" placeholder="Материалы, грн" disabled>								
+			</div>
+			<div class="form-group half-size">	
+				<label>Пуско-наладочные работы, грн</label>
+				<input type="text" class="form-control" ng-model="calculation.sum_jobs" placeholder="Пуско-наладочные работы, грн" disabled>								
+			</div>
+			<div class="form-group">	
+				<label>Объект</label>
+				<input type="text" class="form-control" ng-model="calculation.object_name" placeholder="Объект">								
+			</div>
+			<div class="form-group">	
+				<label>Составил</label>
+				<input type="text" class="form-control" ng-model="calculation.maker_name" placeholder="Составил">								
+			</div>
+			<p>Контактная информация об объекте</p>
+			<hr/>
+			<div class="form-group half-size">	
+				<label>Заказчик</label>
+				<input type="text" class="form-control" ng-model="calculation.customer_name" placeholder="Заказчик">								
+			</div>
+			<div class="form-group half-size">	
+				<label>Отв. лицо на объекте</label>
+				<input type="text" class="form-control" ng-model="calculation.responsible_name" placeholder="Отв. лицо на объекте">								
+			</div>
+			<div class="form-group half-size">	
+				<label>Контактный телефон</label>
+				<input type="text" class="form-control" ng-model="calculation.contact_phone" placeholder="Контактный телефон"/>								
+			</div>
+			<div class="form-group half-size">	
+				<label>E-mail</label>
+				<input type="email" class="form-control" ng-model="calculation.contact_mail" placeholder="E-mail">								
+			</div>
+			<div class="form-group">	
+				<label>Другая информация</label>
+				<input type="text" class="form-control" ng-model="calculation.other_info" placeholder="Другая информация">								
+			</div>
+			<hr/>
+			<h4>Работы</h4>
+			<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseJob=true"></span>
+			<table class="table table-striped table-bordered">
+				<tr>
+					<th>Номер</th>
+					<th>Название</th>
+					<th>Артикул</th>
+					<th>Амортизация, грн</th>
+					<th>Норма времени, чел*ч</th>
+					<th>Количество</th>
+					<th>Стоимость еденицы, грн</th>
+					<th>Сумма, грн</th>
+				</tr>
+				<tr ng-repeat="job in calculation.jobs | orderBy : 'number'">
+					<th>{{$index+1}}</th>
+					<th>{{job.name}}</th>
+					<th>{{job.id}}</th>
+					<th>{{job.amortizations}}</th>
+					<th>{{job['human-hour']}}</th>
+					<th><input type="number" min="0" class="form-control" ng-model="job.number" ng-change="job.sum = job.human-hour*ni.cost_hour*job.number; calculation.jobChanged(job)" placeholder="Кол-во"/></th>
+					<th>{{job.price}}</th>
+					<th>{{job.sum}}</th>
+				</tr>
+			</table>
+			
+			<h4>Материалы</h4>
+			<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseMaterial=true"></span>
+			<table class="table table-striped table-bordered">
+				<tr>
+					<th>Номер</th>
+					<th>Название</th>
+					<th>Артикул</th>					
+					<th>Количество</th>
+					<th>Стоимость еденицы, грн</th>
+					<th>Сумма, грн</th>
+				</tr>
+				<tr ng-repeat="material in calculation.materials" ng-init = "changeMP = true" ng-class="{'changedByUser': changedByUser}">
+					<td>{{$index+1}}</td>
+					<td>{{material.name}}</td>
+					<td>{{material.id}}</td>					
+					<td><input type="number" min="0" class="form-control " ng-model="material.number" ng-change="material.sum = (material.price*(material.number || 0)).toFixed(2); calculation.changed()" placeholder="Кол-во"/></td>
+					<td ng-dblclick = "changeMP = !changeMP"><input ng-disabled = "changeMP" ng-change="calculation.changed(); changedByUser = true; calculation.materialsChanged()" type="number" min="0" class="form-control" ng-model="material.price"></td>
+					<td>{{material.sum}}</td>
+				</tr>
+			</table>
+			
+			<h4>Инструменты</h4>
+			<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseInstrument=true"></span>
+			<table class="table table-striped table-bordered">
+				<tr>
+					<th>Номер</th>
+					<th>Название</th>					
+					<th>Характеристики</th>					
+				</tr>
+				<tr ng-repeat="instrument in calculation.instruments | orderBy: '-$index'">
+					<th>{{$index+1}}</th>
+					<th>{{instrument.name}}</th>					
+					<th>{{instrument.characteristics}}</th>					
+				</tr>
+			</table>
+			
+			<h4>Комментарии</h4>
+			<div class="comments_wrapper">
+				<div class="comment">
+					<div class="form-group comment-text">
+						<textarea class=" form-control" placeholder="Введите комментарий" ng-model="newComment.text"></textarea>													
+					</div>					
+					<button type="button" class="btn btn-primary" ng-click="addComment(newComment); newComment = {}">Отправить</button>
+					<button type="button" class="btn btn-danger" ng-click="newComment = {}">Отмена</button>
+				</div>
+				<div class="comment" ng-repeat="comment in calculation.comments | orderBy: 'date': true">
+					<div class="comment-text">{{comment.text}}</div>
+					<div class="comment-info">{{comment.name}} | {{comment.date}}</div>
+				</div>
+			</div>
+		</form>	
+		<choose-job ng-show="showchooseJob" data-target="calculation"></choose-job>
+		<choose-instrument ng-show="showchooseInstrument" data-target="calculation"></choose-instrument>
+		<choose-material ng-show="showchooseMaterial" data-target="calculation"></choose-material>
+	</div>
+</section>
+<dropdown-ni></dropdown-ni>
