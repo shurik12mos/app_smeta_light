@@ -73,13 +73,16 @@ app.directive('addJob', function(){
 	}
 });
 
-app.directive('chooseJob', function(){
+app.directive('chooseJob', function(JobsModel){
 	return {
 		restrict: "E",
 		templateUrl: "jobs/directives/choose-job.html",		
-		link: function(scope, element, attrs){
+		link: function(scope, element, attrs){	
+			var target = eval("scope."+attrs.target);
+			console.log("targetJob", target);
+			scope.jobs = JobsModel;
 			scope.chooseJob = function(job) {				
-				var target = eval("scope."+attrs.target);				
+				console.log("targetJobIn ChooseJob", target);				
 				var addingJob = new Object(), isExist = false;
 				if (!target.jobs) target.jobs=[];
 				target.jobs.forEach(function(item){
@@ -112,7 +115,7 @@ app.directive('chooseJob', function(){
 				addingJob.instruments.forEach(function(item,i,items) {
 					var existInstrument = false, copyItem = {};
 					target.instruments.forEach(function(itemInst){
-						if (iteminst.id == item.id) {							
+						if (itemInst.id == item.id) {							
 							existInstrument = true;
 						}
 					});
@@ -121,7 +124,7 @@ app.directive('chooseJob', function(){
 						target.instruments.unshift(copyItem);	
 					}	
 				});
-				//addingJob.name = addingJob.charInString;				
+							
 				target.jobs.unshift(addingJob);
 				target.jobChanged(addingJob);
 				scope.showchooseJob=false;

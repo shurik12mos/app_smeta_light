@@ -2,28 +2,68 @@
 
 var app = angular.module('calculationDirectives', ['calculationModelModule']);
 
-app.directive('dropdownNi', function(){
+app.directive('dropdownNi', function(CalculationModel){
 	return {
+		scope: {},
 		restrict: "E",
 		templateUrl: "calculation/directives/dropdown-ni.html",		
-		link: function(scope, element, attrs){				
+		link: function(scope, element, attrs){	
+			scope.calculation = CalculationModel; 
 			scope.changeNI = function(){
+				scope.calculation.numIndicators.forEach(function(item, i, arr){				
+					arr[item.alias] = Number(item.value) || 0;					
+				});
 				scope.calculation.changed();
 			}
 		}
 	}
 });
-/*
-app.directive('jobsCategory', function(){
+
+app.directive('calculationJobs',['CalculationModel', 'JobsModel', function(CalculationModel, JobsModel){
 	return {
+		scope: {},
 		restrict: "E",
-		templateUrl: "jobs/directives/jobsCategory.html",		
+		templateUrl: "calculation/directives/calculation-jobs.html",		
 		link: function(scope, element, attrs){
+			var calculation = scope.calculation = CalculationModel;
+			scope.oneJob = {
+				price: 0
+			};
+			scope.showAddUserJob = false;
+			var jobCalculate = JobsModel.jobCalculate;			
+						
+			scope.addUserJob = function(oneJob) {
+				var jobsArr = calculation.jobs, job;
+				
+				job = {
+					made_by_user: true,
+					id: "Польз",			
+					materials: []
+				}
+				
+				job.copyObject(oneJob);
+				jobsArr.unshift(job);
+				calculation.jobChanged(job);		
+				
+				scope.oneJob = {};
+			}
 			
+			scope.calculateUserJob = function(oneJob) {
+				var ni = calculation.numIndicators;
+				if (!oneJob['job-rank'] || !oneJob['human-hour']) {
+					oneJob.price = 0;
+					return;
+				}
+				
+				oneJob.number = oneJob.number?oneJob.number:0;				
+				oneJob = jobCalculate(oneJob, ni);			
+			}
+					
+			console.log("scope", scope);
 		}
 	}
-});
-
+}]);
+/*
 app.directive('addJobsSection', function(){
 	return {
 		restrict: "E",

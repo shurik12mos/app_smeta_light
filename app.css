@@ -687,5 +687,15 @@ form::nth-child(2n).half-size {
 	color: #eee;	
 }
 
+.inline-form {
+	display: block;
+	margin: 15px 0px;
+	padding: 10px 15px;
+	border: 1px solid gray;
+}
 
+.inline-form>input {
+	display: inline-block;
+	margin:	5px 0px;
+}
 

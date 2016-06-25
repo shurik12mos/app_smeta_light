@@ -13,7 +13,7 @@
 				</div>
 				<h3>{{jobs.job.name}}</h3>
 				<p ng-show="jobs.job['human-hour']">
-					{{jobs.job["human-hour"]*ni.cost_hour*jobs.job["job-rank"]}} грн/{{jobs.job.measure}} 		
+					{{jobs.job.price}} грн/{{jobs.job.measure}} 		
 				</p>
 				<div class="descriptionJob" ng-show="jobs.job.name">
 					<ul ng-init="descriptionJob = 1">			

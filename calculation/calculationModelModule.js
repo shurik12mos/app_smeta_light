@@ -3,9 +3,12 @@
 var app = angular.module('calculationModelModule', ['ngRoute']);
 
 app.factory('CalculationModel', ['$routeParams' , '$location', '$route', 'CalculationItem', 'NumericIndicatorsModel', 'JobsModel',  function($routeParams, $location, $route, CalculationItem, NumericIndicatorsModel, JobsModel){
+		
 	var date = new Date();	
 	var ni = NumericIndicatorsModel;
 	var jobs = JobsModel;
+	//Функция калькуляции переменных объекта Работы(стоимость, амортизация) в зависимости от числовых показателей сметы(стоимость часа и прочее)
+	var jobCalculate = jobs.jobCalculate;
 	var calculation = {
 		kp: null,
 		date: date.toDateString(),
@@ -26,6 +29,7 @@ app.factory('CalculationModel', ['$routeParams' , '$location', '$route', 'Calcul
 
 	function getSum() {
 		calculation.sum = Number(calculation.sum_materials)+ Number(calculation.sum_jobs);
+		calculation.sum = calculation.sum.toFixed(2)
 		return calculation;
 	}
 	
@@ -43,10 +47,10 @@ app.factory('CalculationModel', ['$routeParams' , '$location', '$route', 'Calcul
 	function getSumJobs() {
 		if (!calculation.jobs || !calculation.jobs.length) return 0;		
 		var result = calculation.jobs.reduce(function(sum, current){			
-			sum += current.sum;
+			sum += Number(current.sum);			
 			return sum;
 		},0);		
-		calculation.sum_jobs = Number(result);
+		calculation.sum_jobs = Number(result).toFixed(2);
 		return calculation;
 	};
 		
@@ -67,8 +71,8 @@ app.factory('CalculationModel', ['$routeParams' , '$location', '$route', 'Calcul
 	}
 	
 	function jobsChanged(){
-		calculation.jobs.forEach(function(item){
-			var ni = calculation.numIndicators;
+		var ni = calculation.numIndicators;
+		calculation.jobs.forEach(function(item){			
 			if (item.number<0) item.number = 0;
 			item = jobCalculate(item, ni);
 			item.sum = (item.price*(item.number || 0)).toFixed(2);			
@@ -116,29 +120,45 @@ app.factory('CalculationModel', ['$routeParams' , '$location', '$route', 'Calcul
 		});		
 	}
 		
-	calculation.getCalc = function() {		
-		var id;	
+	calculation.getCalc = function(id) {			
 		function getCalcFromServer(){
 			var temp = CalculationItem.get({calcId: id}, function(response){
-				response.numIndicators.forEach(function(item, i, arr){				
+				response = angular.fromJson(response);				
+				calculation.copyObject(response);	
+				calculation.numIndicators.forEach(function(item, i, arr){				
 					arr[item.alias] = Number(item.value) || 0;					
 				});
-				calculation.copyObject(response);
-				calculation.changed();
+				
 			}, function(error){
 				alert("Запрос не удался. Ошибка: " + error);			
 			});
 		}
-		
-		if ($routeParams.calcId !== "new") {		
-			id = $routeParams.calcId;	
+		console.log("id=", id);
+		if (id !== "new") {					
 			getCalcFromServer();
 		}else {				
+			calculation.kp = null;
+			calculation.date = date.toDateString();
+			calculation.object_name = "";
+			calculation.maker_name = "";
+			calculation.customer_name = "";
+			calculation.responsible_name = "";
+			calculation.contact_phone = null;
+			calculation.contact_mail = "";
+			calculation.other_info = "";
+			calculation.jobs = [];
+			calculation.materials = [];
+			calculation.instruments = [];	
+			calculation.comments = [];
+			calculation.numIndicators = [];
+			calculation.niPromise = ni.list.$promise;
+			
 			getNI();		
 		}			
 	}
 	
 	calculation.jobChanged = function(job) {		
+		jobCalculate(job, calculation.numIndicators);
 		job.sum = (job.price*job.number).toFixed(2);
 		job.materials.forEach(function(jItem){
 			calculation.materials.forEach(function(mItem){
@@ -153,8 +173,6 @@ app.factory('CalculationModel', ['$routeParams' , '$location', '$route', 'Calcul
 		materialsChanged();		
 		calculation.changed();
 	}
-
-	var jobCalculate = jobs.jobCalculate;
-		
-	return calculation;
+	
+	return calculation;	
 }]);

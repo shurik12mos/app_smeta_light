@@ -22,13 +22,14 @@ app.controller('CalculationCtrl', [
 	NumericIndicatorsModel,
 	CalculationModel) {	
 	$scope.params = $routeParams;	
+	var id = $scope.params.calcId;
 	var scope = $scope;		
 	scope.jobs = JobsModel;
 	scope.instruments = InstrumentsModel;
 	scope.model = MaterialsModel;
 	scope.ni = NumericIndicatorsModel;	
 	scope.calculation = CalculationModel;	
-	scope.calculation.getCalc();
+	scope.calculation.getCalc(id);
 	
 	scope.addComment = function(item) {
 		var time = new Date().toLocaleTimeString();

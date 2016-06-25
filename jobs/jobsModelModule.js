@@ -516,7 +516,8 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs, NumericIndic
 	}
 	
 	//Calculate price for job
-	jobs.jobCalculate = function(job, ni) {		
+	jobs.jobCalculate = function(job, ni) {	
+		console.log(".jobCalculate     ", ni, job);
 		function toFixed(item, n) {
 			item = Math.round(item * Math.pow(10, n)) / Math.pow(10, n);
 			return item;
@@ -527,7 +528,7 @@ app.service('JobsModel', function(JobsCategory, JobsSections, Jobs, NumericIndic
 		}
 		
 		var common_sallary = 0, common_expenses=0;
-		job.salary_workers = toFixed(job["human-hour"]*ni.cost_hour*job["job-rank"],2);//Заработная плата основных рабочих
+		job.salary_workers = toFixed(job["human-hour"]*ni.cost_hour*job["job-rank"],2);//Заработная плата основных рабочих		
 		job.salary_brigadier = toFixed((job.salary_workers*ni.salary_brigadier/100),2);//З/п в общепроизводственных расходах (бригадир) 
 		job.salary_manager = toFixed((job.salary_workers*ni.salary_manager/100),2); //З/п в общепроизводственных расходах (менеджер)
 		job.salary_project = toFixed((job.salary_workers*ni.salary_project/100),2); //Проектирование	

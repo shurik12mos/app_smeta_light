@@ -53,30 +53,7 @@
 				<input type="text" class="form-control" ng-model="calculation.other_info" placeholder="Другая информация">								
 			</div>
 			<hr/>
-			<h4>Работы</h4>
-			<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseJob=true"></span>
-			<table class="table table-striped table-bordered">
-				<tr>
-					<th>Номер</th>
-					<th>Название</th>
-					<th>Артикул</th>
-					<th>Амортизация, грн</th>
-					<th>Норма времени, чел*ч</th>
-					<th>Количество</th>
-					<th>Стоимость еденицы, грн</th>
-					<th>Сумма, грн</th>
-				</tr>
-				<tr ng-repeat="job in calculation.jobs | orderBy : 'number'">
-					<th>{{$index+1}}</th>
-					<th>{{job.name}}</th>
-					<th>{{job.id}}</th>
-					<th>{{job.amortizations}}</th>
-					<th>{{job['human-hour']}}</th>
-					<th><input type="number" min="0" class="form-control" ng-model="job.number" ng-change="job.sum = job.human-hour*ni.cost_hour*job.number; calculation.jobChanged(job)" placeholder="Кол-во"/></th>
-					<th>{{job.price}}</th>
-					<th>{{job.sum}}</th>
-				</tr>
-			</table>
+			<calculation-jobs></calculation-jobs>
 			
 			<h4>Материалы</h4>
 			<span class="changeCategory glyphicon glyphicon-plus" ng-click="showchooseMaterial=true"></span>
@@ -128,8 +105,7 @@
 					<div class="comment-info">{{comment.name}} | {{comment.date}}</div>
 				</div>
 			</div>
-		</form>	
-		<choose-job ng-show="showchooseJob" data-target="calculation"></choose-job>
+		</form>			
 		<choose-instrument ng-show="showchooseInstrument" data-target="calculation"></choose-instrument>
 		<choose-material ng-show="showchooseMaterial" data-target="calculation"></choose-material>
 	</div>
